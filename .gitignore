@@ -1,0 +1,9 @@
+# 第三者著作物（FAO LODE-BD 3.0, CC BY-NC-SA 3.0 IGO）はリポジトリに含めず、
+# DOI でリンク参照する: https://doi.org/10.4060/cb2209en
+cb2209en.pdf
+
+# OS / エディタ
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
