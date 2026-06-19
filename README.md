@@ -23,6 +23,10 @@ GitHub 上で Mermaid 図がそのまま描画されます。
 2. フローチャートの「資源／登録する文献」から出発し、分岐に従って進む
 3. 対応表・注記で要素名・属性・入力例を確認する
 
+## 今後の計画
+
+決定木整備の着手順は [ROADMAP.md](ROADMAP.md) にまとめています。DOI登録の必須項目を最優先とし、進捗は [Issue](https://github.com/tzhaya/jpcoarschema-helper/issues) で管理します。
+
 ## 記号凡例（全決定木共通）
 
 | 記号 | 意味 |
