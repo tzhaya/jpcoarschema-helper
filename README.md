@@ -49,7 +49,7 @@ GitHub 上で Mermaid 図がそのまま描画されます。
 
 ## ライセンス
 
-[CC0 1.0 Universal](LICENSE) — パブリックドメイン
+このプロジェクトは [CC0 1.0 Universal (CC0 1.0) Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/) の下で公開されています。詳細は [LICENSE](LICENSE) ファイルを参照してください。
 
-本リポジトリの自作コンテンツ（決定木・参照資料）は CC0 で提供します。
-FAO の LODE-BD 3.0 本体（PDF）は第三者著作物（CC BY-NC-SA 3.0 IGO）のためリポジトリには含めず、上記 DOI でリンク参照します。
+## 作者
+- Takanori Hayashi
