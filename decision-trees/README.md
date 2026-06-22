@@ -1,6 +1,6 @@
-# JPCOARスキーマ 入力決定木集
+# JPCOARスキーマ 入力フローチャート集
 
-FAO の Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0 の決定木方式にならい、JPCOARスキーマ（2.0）の各プロパティを初心者が迷わず入力できるようにするガイド集です。各ページは **フローチャート（Mermaid）＋ 決定プロセス対応表 ＋ 注記** で構成します。
+FAO の Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0 を参考に、JPCOARスキーマ（2.0）の各プロパティを初心者が迷わず入力できるようにするガイド集です。各ページは **フローチャート（Mermaid）＋ 入力プロセス対応表 ＋ 注記** で構成します。
 
 DOI登録（JaLC / Crossref）を重視し、必須度・`xml:lang` 要件は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠します。
 
@@ -20,4 +20,4 @@ DOI登録（JaLC / Crossref）を重視し、必須度・`xml:lang` 要件は [J
 
 ## 共通テンプレート
 
-`title.md` の構成（記号凡例 → 決定木 → 対応表 → 注記 → 参考）を各プロパティの雛形として再利用します。
+`title.md` の構成（記号凡例 → フローチャート → 対応表 → 注記 → 参考）を各プロパティの雛形として再利用します。

@@ -1,6 +1,6 @@
 # reference — 参照資料
 
-[decision-trees](../decision-trees/) の決定木が典拠とする、JPCOARスキーマおよび DOI 登録要件の参照資料です。各決定木の必須度・`xml:lang` 要件・要素名はこれらの資料に準拠しています。
+[decision-trees](../decision-trees/) のフローチャートが典拠とする、JPCOARスキーマおよび DOI 登録要件の参照資料です。各フローチャートの必須度・`xml:lang` 要件・要素名はこれらの資料に準拠しています。
 
 ## 収録資料
 

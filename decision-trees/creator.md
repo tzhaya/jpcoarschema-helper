@@ -1,15 +1,38 @@
-# 作成者 入力決定木（JPCOARスキーマ 2.0）
+# 作成者 入力フローチャート
 
-JPCOARスキーマの **作成者** を初心者が迷わず入力できるよう、FAO の LODE-BD 3.0 の決定木方式にならって作成したガイドです。フローチャートで道筋をたどり、対応表で使用する要素・属性と実例を確定します。
+初心者が JPCOARスキーマの **作成者** を迷わず入力できるよう、フローチャートで道筋をたどり、対応表で使用する要素・属性を確定します。
 
 対象: JPCOARスキーマ **2.0**（要素 [#3 作成者](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3) と下位項目）
 利用シーン: **DOI登録（JaLC / Crossref）を重視**。必須度・`xml:lang` 要件は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠。
 
-> 記号凡例は [README.md](README.md) と共通（楕円=開始/終了、ひし形=判断、長方形=処理、平行四辺形=入力）。
+---
+
+## まず入力するもの
+
+| 入力したい情報 | 入力先 | 基本ルール |
+|--------------|--------|------------|
+| 個人名（姓と名に分けられる） | `jpcoar:familyName` ＋ `jpcoar:givenName` | 姓と名を分けて入力する |
+| 団体名・分割しない名前 | `jpcoar:creatorName` | 単一文字列としてまとめて入力する |
+| カナ読み・ローマ字読み | `jpcoar:creatorName` ほか | `ja-Kana` / `ja-Latn` を使い、`ja` の本文も併記する |
+| 作成者識別子（ORCID 等） | `jpcoar:nameIdentifier` | `nameIdentifierScheme` で種類を示す |
+| 所属機関 | `jpcoar:affiliationName` | `jpcoar:affiliation` の下に入力する |
+
+`xml:lang` は、JPCOAR/JaLC DOI では推奨、Crossref DOI では必須です。このガイドでは入力漏れと多言語混在を防ぐため、**原則としてすべての氏名に付与**します。
 
 ---
 
-## 作成者決定木
+## 記号凡例（フローチャート共通）
+
+| 記号 | 意味 |
+|------|------|
+| 楕円 `([ ])` | 開始 / 終了 |
+| ひし形 `{ }` | 判断（Yes / No や種類の分岐） |
+| 長方形 `[ ]` | 処理（入力・設定する内容） |
+| 平行四辺形 `[/ /]` | 入力・情報源 |
+
+---
+
+## 作成者入力フローチャート
 
 ```mermaid
 flowchart TD
@@ -53,9 +76,11 @@ flowchart TD
     D6 -- いいえ --> END([完了])
 ```
 
+> **ポイント**: DOIの登録先により、必要な属性が変わります。Crossref DOI では姓名（`creatorName` / `familyName` / `givenName`）に `xml:lang` が必須で、作成者識別子は ORCID に限定されます。
+
 ---
 
-## 決定プロセス対応表
+## 入力プロセス対応表
 
 | 判断 | 質問 | 回答 | アクション | 要素・属性 | 入力例 |
 |------|------|------|-----------|-----------|--------|
@@ -78,8 +103,60 @@ flowchart TD
 
 ---
 
+## 使い分けの目安
+
+| 迷いやすいケース | 判断 | 入力先 |
+|----------------|------|--------|
+| 「山田 太郎」のように姓と名に分けられる個人名 | 個人名 | `jpcoar:familyName` ＋ `jpcoar:givenName` |
+| 「国立情報学研究所」など団体名、または姓名を分割できない名前 | 団体・単一文字列 | `jpcoar:creatorName` |
+| 編者・翻訳者など、作成に間接的に関与した者 | 作成者ではない | 寄与者 `jpcoar:contributor`（#4） |
+| 氏名の読みを検索用に入れたい | ヨミ | `xml:lang="ja-Kana"` または `ja-Latn`（`ja` も併記） |
+
+---
+
+## 入力例
+
+### 個人名（姓・名に分割）＋カナヨミ
+
+```xml
+<jpcoar:creator>
+  <jpcoar:creatorName xml:lang="ja">山田 太郎</jpcoar:creatorName>
+  <jpcoar:creatorName xml:lang="ja-Kana">ヤマダ タロウ</jpcoar:creatorName>
+  <jpcoar:familyName xml:lang="ja">山田</jpcoar:familyName>
+  <jpcoar:givenName xml:lang="ja">太郎</jpcoar:givenName>
+</jpcoar:creator>
+```
+
+### 個人名＋日英併記＋ORCID＋所属
+
+```xml
+<jpcoar:creator>
+  <jpcoar:nameIdentifier nameIdentifierScheme="ORCID" nameIdentifierURI="https://orcid.org/0000-0001-2345-6789">0000-0001-2345-6789</jpcoar:nameIdentifier>
+  <jpcoar:creatorName xml:lang="ja">山田 太郎</jpcoar:creatorName>
+  <jpcoar:creatorName xml:lang="en">Yamada, Taro</jpcoar:creatorName>
+  <jpcoar:familyName xml:lang="ja">山田</jpcoar:familyName>
+  <jpcoar:familyName xml:lang="en">Yamada</jpcoar:familyName>
+  <jpcoar:givenName xml:lang="ja">太郎</jpcoar:givenName>
+  <jpcoar:givenName xml:lang="en">Taro</jpcoar:givenName>
+  <jpcoar:affiliation>
+    <jpcoar:affiliationName xml:lang="ja">国立情報学研究所</jpcoar:affiliationName>
+  </jpcoar:affiliation>
+</jpcoar:creator>
+```
+
+### 団体名
+
+```xml
+<jpcoar:creator>
+  <jpcoar:creatorName xml:lang="ja">国立情報学研究所</jpcoar:creatorName>
+</jpcoar:creator>
+```
+
+---
+
 ## 注記（入力ルール）
 
+- **このガイドの運用方針**: `xml:lang` は原則付与します。JPCOAR/JaLC DOI では推奨、Crossref DOI では必須です。
 - **記入順**: 複数の作成者がいる場合は **第一著者から順に** 記入します。
 - **作成者と寄与者の区別**: 直接的に作成に関与した者を「作成者」、間接的に貢献した者（編者・翻訳者など役割が異なる者）は「寄与者」(#4) に記入します。
 - **姓名(creatorName) と 姓+名(familyName/givenName) の使い分け**:
