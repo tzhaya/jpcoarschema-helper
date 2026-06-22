@@ -3,7 +3,9 @@
 初心者が JPCOARスキーマの **タイトル** を迷わず入力できるよう、フローチャートで道筋をたどり、対応表で使用する要素・属性を確定します。
 
 対象: JPCOARスキーマ **2.0**（要素 [#1 タイトル](https://schema.irdb.nii.ac.jp/ja/schema/2.0/1) / [#2 その他のタイトル](https://schema.irdb.nii.ac.jp/ja/schema/2.0/2)）
-利用シーン: **DOI登録（JaLC / Crossref）を重視**。必須度・`xml:lang` 要件は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠。
+利用シーン: **DOI登録（JaLC / Crossref）を重視**。要素・属性の定義は [タイトル記述ルール（公式準拠）](../reference/title_rules.md)、必須度・`xml:lang` 要件は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠。
+
+`dc:title`（本タイトル）はスキーマ上 **M（必須・1回以上）** で、DOI登録の有無に関わらず必ず1つ以上入力します。`dcterms:alternative`（その他のタイトル）は任意（0回以上）です。
 
 ---
 
@@ -13,11 +15,10 @@
 |------------------|--------|------------|
 | 本タイトル | `dc:title` | 資源を代表するタイトルを1言語ずつ入力する |
 | 別言語の同一タイトル（並列タイトル） | `dc:title` | 言語ごとに `dc:title` を繰り返す |
-| 副題・別タイトル・目次タイトル | `dcterms:alternative` | 「その他のタイトル」(#2) として入力する |
-| 翻訳タイトル | `dcterms:alternative` | 翻訳先言語の `xml:lang` を付ける |
+| 副題・別タイトル・目次タイトル・奥付タイトル | `dcterms:alternative` | 「その他のタイトル」(#2) として入力する |
 | カナ読み・ローマ字読み | `dc:title` | `ja-Kana` / `ja-Latn` を使い、`ja` の本文タイトルも併記する |
 
-`xml:lang` は、JPCOAR/JaLC DOI では推奨、Crossref DOI では必須です。このガイドでは入力漏れと多言語混在を防ぐため、**原則としてすべてのタイトルに付与**します。
+`xml:lang` はスキーマ上「該当する場合は必須（MA）」で、DOI登録では **JaLC DOI＝任意 / Crossref DOI＝必須**（書籍系はさらに `en` タイトル必須）です。このガイドでは入力漏れと多言語混在を防ぐため、**原則としてすべてのタイトルに付与**します。
 
 ---
 
@@ -41,8 +42,8 @@ flowchart TD
     A0 --> D0
     D0 -- はい --> Q1{DOI登録先は?}
 
-    Q1 -- 登録しない --> CTX0["通常入力<br/>xml:lang は原則付与"]
-    Q1 -- JaLC DOI --> CTX1["JaLC 要件<br/>タイトル必須<br/>xml:lang は推奨"]
+    Q1 -- 登録しない --> CTX0["通常入力<br/>タイトル必須（スキーマ M）<br/>xml:lang は原則付与"]
+    Q1 -- JaLC DOI --> CTX1["JaLC 要件<br/>タイトル必須<br/>xml:lang は任意（本ガイドは付与）"]
     Q1 -- Crossref DOI --> Q1a{資源タイプは<br/>書籍系か?}
 
     Q1a -- いいえ --> CTX2["Crossref 要件<br/>タイトル必須<br/>xml:lang 必須"]
@@ -68,12 +69,10 @@ flowchart TD
     D3 -- はい --> D3a{どの種類か?}
 
     D3a -- "別言語の同一タイトル" --> A3a["並列タイトル<br/>dc:title を言語別に繰り返す"]
-    D3a -- "副題・別タイトル・目次タイトル" --> A3b["その他のタイトル<br/>dcterms:alternative に入力"]
-    D3a -- "翻訳タイトル" --> A3c["その他のタイトル<br/>dcterms:alternative に翻訳先言語で入力"]
+    D3a -- "副題・別タイトル・目次タイトル・奥付タイトル" --> A3b["その他のタイトル<br/>dcterms:alternative に入力"]
 
     A3a --> D3
     A3b --> D3
-    A3c --> D3
 
     END([完了])
 ```
@@ -88,8 +87,8 @@ flowchart TD
 |------|------|------|-----------|-----------|--------|
 | #0 | タイトルは確認できるか | いいえ | 表紙・標題紙・本文冒頭・登録依頼情報を確認し #0 へ戻る | ― | ― |
 | | | はい | #1（DOI登録先）へ | ― | ― |
-| #1 | DOI登録先は | 登録しない | 通常入力で続行。`xml:lang` は原則付与 | `dc:title` | |
-| | | JaLC DOI | タイトル必須。`xml:lang` は推奨 | `dc:title` | |
+| #1 | DOI登録先は | 登録しない | タイトル必須（スキーマ M）。`xml:lang` は原則付与 | `dc:title` | |
+| | | JaLC DOI | タイトル必須。`xml:lang` は任意（本ガイドは付与） | `dc:title` | |
 | | | Crossref DOI | 資源タイプが書籍系か確認 | `dc:title` | |
 | #1a | Crossref DOI の資源タイプは書籍系か | いいえ | `xml:lang` 必須で続行 | `dc:title` | |
 | | | はい | `xml:lang` 必須、かつ `en` タイトル必須で続行 | `dc:title xml:lang="en"` | Studies on agrometeorology |
@@ -100,8 +99,7 @@ flowchart TD
 | | | ローマ字 | `ja` の本文タイトルと併記 | `dc:title xml:lang="ja-Latn"` | Nogyo kisho no kenkyu |
 | | | いいえ | #4 へ | ― | ― |
 | #4 | ほかのタイトルはあるか | 別言語の同一タイトル | 並列タイトルとして `dc:title` を言語別に繰り返す | `dc:title xml:lang="fr"` | Etudes sur l'agrometeorologie |
-| | | 副題・別タイトル・目次タイトル | 「その他のタイトル」へ入力 | `dcterms:alternative xml:lang="ja"` | 第2版に向けて |
-| | | 翻訳タイトル | 「その他のタイトル」へ翻訳先言語で入力 | `dcterms:alternative xml:lang="en"` | A study on agrometeorology |
+| | | 副題・別タイトル・目次タイトル・奥付タイトル | 「その他のタイトル」へ入力 | `dcterms:alternative xml:lang="ja"` | 第2版に向けて |
 | | | いいえ | 完了 | ― | ― |
 
 ---
@@ -112,7 +110,6 @@ flowchart TD
 |----------------|------|--------|
 | 日本語タイトル「農業気象の研究」と英語タイトル "Studies on agrometeorology" が同じ資料の代表タイトルとして示されている | 並列タイトル | それぞれ `dc:title` |
 | タイトル「農業気象の研究」に副題「第2版に向けて」が付いている | 副題 | `dcterms:alternative` |
-| 日本語タイトルに対して、説明用に英訳タイトル "A study on agrometeorology" を補う | 翻訳タイトル | `dcterms:alternative xml:lang="en"` |
 | 日本語タイトルの読みを検索用に入れたい | ヨミ | `dc:title xml:lang="ja-Kana"` または `ja-Latn` |
 
 ---
@@ -133,28 +130,30 @@ flowchart TD
 <dc:title xml:lang="ja-Kana">ノウギョウキショウノケンキュウ</dc:title>
 ```
 
-### 本タイトル＋副題＋翻訳タイトル
+### 本タイトル＋副題（その他のタイトル）
 
 ```xml
 <dc:title xml:lang="ja">農業気象の研究</dc:title>
 <dcterms:alternative xml:lang="ja">第2版に向けて</dcterms:alternative>
-<dcterms:alternative xml:lang="en">A study on agrometeorology</dcterms:alternative>
 ```
 
 ---
 
 ## 注記（入力ルール）
 
-- **このガイドの運用方針**: `xml:lang` は原則付与します。JPCOAR/JaLC DOI では推奨、Crossref DOI では必須です。
-- **1言語＝1要素**: 1つの `dc:title` や `dcterms:alternative` に複数言語を並べません。言語が異なる場合は要素を分けます。
-- **同一言語コードの重複に注意**: 同じ種類のタイトルで同一 `xml:lang` の要素を重複させないようにします。
+- **タイトルの必須度**: `dc:title` はスキーマ上 M（必須・1回以上）。DOI登録の有無に関わらず、本タイトルを必ず1つ以上入力します。
+- **このガイドの運用方針**: `xml:lang` は原則付与します。スキーマ上は「該当する場合は必須（MA）」、DOI登録では JaLC DOI＝任意 / Crossref DOI＝必須です。
+- **1言語＝1要素**: 1つの `dc:title` や `dcterms:alternative` に複数言語を並べません。言語が異なる場合は要素を分けます（異なる言語の並列表記は非推奨）。
+- **同一言語コードの重複**: `dc:title` は各言語コードにつき1回までとし、同一 `xml:lang` の重複記入は行いません。一方、`dcterms:alternative` は同一言語コードで複数回繰り返して記入できます。
+- **言語の記入順**: `dc:title` は優先度の高い言語順に記入します。
+- **収録物名は記入しない**: 掲載誌名・収録物名をタイトルに混入させません（`dc:title`・`dcterms:alternative` ともに非推奨）。
 - **ヨミの併記ルール**: カナ読み (`ja-Kana`) やローマ字読み (`ja-Latn`) を入れる場合は、必ず `xml:lang="ja"` の本文タイトルも併せて記入します。
-- **本タイトルと「その他のタイトル」の使い分け**: JPCOAR の「その他のタイトル」(#2) には DataCite のような `titleType` 属性がありません。副題・目次タイトル・翻訳タイトルなどは `dcterms:alternative` に入れ、`xml:lang` で言語を示します。
+- **本タイトルと「その他のタイトル」の使い分け**: JPCOAR の「その他のタイトル」(#2) には DataCite のような `titleType` 属性がありません。副題・目次タイトル・奥付タイトルなど本タイトル以外のタイトルは `dcterms:alternative` に入れ、`xml:lang` で言語を示します。なお、本タイトルの別言語版は「その他のタイトル」ではなく `dc:title` に記入します。
 - **並列タイトル**: 同じ資料の代表タイトルが複数言語で示されている場合は、「その他のタイトル」ではなく `dc:title` を言語別に繰り返して表現します。
 - **DOI登録先による差分**（[対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) より）:
-  - **JaLC DOI**: タイトルは必須（1以上）、`xml:lang` は推奨。
+  - **JaLC DOI**: タイトルは必須（1以上）、`xml:lang` は任意。
   - **Crossref DOI（ジャーナルアーティクル等）**: タイトルは必須（1以上）、`xml:lang` は必須。
-  - **Crossref DOI（書籍系）**: タイトルは必須（1以上）、`xml:lang` は必須、かつ `xml:lang="en"` のタイトルが必須。
+  - **Crossref DOI（書籍系: book / book part / technical report / research report / report / thesis 系）**: タイトルは必須（1以上）、`xml:lang` は必須、かつ `xml:lang="en"` のタイトルが必須。
 
 ---
 
@@ -162,5 +161,6 @@ flowchart TD
 
 - JPCOARスキーマ 2.0 #1 タイトル: https://schema.irdb.nii.ac.jp/ja/schema/2.0/1
 - JPCOARスキーマ 2.0 #2 その他のタイトル: https://schema.irdb.nii.ac.jp/ja/schema/2.0/2
+- 要素・属性の記述ルール（公式準拠）: [title_rules.md](../reference/title_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en
