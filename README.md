@@ -17,6 +17,7 @@ GitHub 上で Mermaid 図がそのまま描画されます。
 | タイトル | [decision-trees/title.md](decision-trees/title.md) | `dc:title` / `dcterms:alternative` (#1, #2) |
 | 作成者 | [decision-trees/creator.md](decision-trees/creator.md) | `jpcoar:creator` と下位項目 (#3) |
 | 日付 | [decision-trees/date.md](decision-trees/date.md) | `datacite:date` / `dcterms:date` (#12, #13) |
+| ID登録 | [decision-trees/identifier-registration.md](decision-trees/identifier-registration.md) | `jpcoar:identifierRegistration` (#19) |
 
 ## 使い方
 

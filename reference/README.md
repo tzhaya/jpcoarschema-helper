@@ -11,6 +11,7 @@
 | [title_rules.md](title_rules.md) | タイトル（#1）／その他のタイトル（#2）の記入レベル・属性・記述ルールの公式準拠まとめ | [JPCOARスキーマ 2.0 #1](https://schema.irdb.nii.ac.jp/ja/schema/2.0/1) / [#2](https://schema.irdb.nii.ac.jp/ja/schema/2.0/2) |
 | [creator_rules.md](creator_rules.md) | 作成者（#3）と下位項目（識別子・姓名・姓・名・別名・所属）の記入レベル・属性・記述ルールの公式準拠まとめ | [JPCOARスキーマ 2.0 #3](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3) ほか下位項目 |
 | [date_rules.md](date_rules.md) | 日付（#12）／日付（リテラル）（#13）の記入レベル・属性・`dateType` 統制語彙・記述ルールの公式準拠まとめ | [JPCOARスキーマ 2.0 #12](https://schema.irdb.nii.ac.jp/ja/schema/2.0/12) / [#13](https://schema.irdb.nii.ac.jp/ja/schema/2.0/13) |
+| [identifier_registration_rules.md](identifier_registration_rules.md) | ID登録（#19）の記入レベル・属性・`identifierType` 統制語彙・記述ルールの公式準拠まとめ | [JPCOARスキーマ 2.0 #19](https://schema.irdb.nii.ac.jp/ja/schema/2.0/19) |
 | [_TEMPLATE_element_rules.md](_TEMPLATE_element_rules.md) | 要素別ルール（`*_rules.md`）作成用テンプレート。新規プロパティ追加時にコピーして使う | ― |
 
 > 新しいプロパティのルールをまとめる際は `_TEMPLATE_element_rules.md` をコピーし、記入レベル記号の意味は [decision-trees/CONVENTIONS.md](../decision-trees/CONVENTIONS.md) を参照してください。作成手順は `jpcoar-flowchart` スキルに定義しています。
