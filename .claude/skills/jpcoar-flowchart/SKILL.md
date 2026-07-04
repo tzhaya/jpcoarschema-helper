@@ -42,14 +42,15 @@ JPCOARスキーマ 2.0 の1プロパティについて、公式定義のまと�
 ## ステップ2: フローチャートを作る → `decision-trees/<element>.md`
 
 1. [decision-trees/title.md](../../../decision-trees/title.md) の構成を雛形にする（CONVENTIONS.md 第1節の順序）。
-2. 記号凡例・記入レベル凡例・`xml:lang` 方針は **CONVENTIONS.md を参照**し、全文の再掲はしない。
-3. ステップ1の `*_rules.md` を要素・属性・入力例の典拠にする。
-4. **DOI要件の分岐を対照表から織り込む**:
+2. 冒頭に「**この項目の性質**」の4観点表を記入する（入力の型＝解釈型/転記型/調査型・他項目への影響・事前調査・誤入力の影響。定義とフォーマットは CONVENTIONS.md 第8節）。
+3. 記号凡例・記入レベル凡例・`xml:lang` 方針は **CONVENTIONS.md を参照**し、全文の再掲はしない。
+4. ステップ1の `*_rules.md` を要素・属性・入力例の典拠にする。
+5. **DOI要件の分岐を対照表から織り込む**:
    - 「DOI登録先は?（登録しない / JaLC / Crossref）」を上流の判断に置く。
    - 対象が**書籍系か**で Crossref の `xml:lang="en"` 必須などが変わる要素は、資源タイプ分岐を追加。
    - 対照表の語（必須 / 条件付必須 / 任意 / 推奨）を**そのまま**使う（言い換えない）。
-5. Mermaid は `flowchart TD`。GitHub で描画されるか構文を意識する（ラベル内の特殊文字に注意）。
-6. [decision-trees/README.md](../../../decision-trees/README.md) と [README.md](../../../README.md) の一覧表の状態を更新。
+6. Mermaid は `flowchart TD`。GitHub で描画されるか構文を意識する（ラベル内の特殊文字に注意）。
+7. [decision-trees/README.md](../../../decision-trees/README.md) と [README.md](../../../README.md) の一覧表の状態を更新。
 
 ## ステップ3: 照合・検証（省略しない）
 
@@ -61,6 +62,7 @@ JPCOARスキーマ 2.0 の1プロパティについて、公式定義のまと�
 - [ ] スキーマ層・DOI層・運用方針の3層が混ざっていないか
 - [ ] Crossref の `xml:lang="en"` 必須・ORCID限定・書籍系の対象タイプを正しく反映したか
 - [ ] フローチャート / 対応表 / 注記 / 入力例が相互に矛盾しないか
+- [ ] 「この項目の性質」の4観点（入力の型・他項目への影響・事前調査・誤入力の影響）を CONVENTIONS.md 第8節の定義に沿って記入したか
 - [ ] 一覧表（README 2か所）の状態を更新したか
 
 ---
