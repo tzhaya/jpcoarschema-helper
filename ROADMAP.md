@@ -38,8 +38,10 @@ JPCOARスキーマ 2.0 のフローチャート整備の着手順をまとめま
 
 DOI必須以外のプロパティを、対照表の必須度を目安に順次フローチャート化します。着手時に [トラッキング Issue #8](https://github.com/tzhaya/jpcoarschema-helper/issues/8) から個別 Issue を切り出します。
 
-- **優先度・高**: 収録物名／収録物識別子／巻・号／開始・終了ページ／関連情報（Crossref で必須になる項目）
-- **優先度・中**: 寄与者・アクセス権・権利情報・主題・内容記述・言語・バージョン・助成情報・ファイル情報
+> **2026-07-04 見直し**: DOI必須度に加え、**入力時の人間の判断負荷（書誌から転記できず資料の解釈が必要な「解釈型」かどうか）**を優先度の基準に追加しました。出版タイプ＋関連情報（版の判断が relationType に連動）とアクセス権（エンバーゴの時間依存判断）を優先度・高へ移動しています。
+
+- **優先度・高**: 収録物名／収録物識別子／巻・号／開始・終了ページ（Crossref で必須になる項目）／出版タイプ＋関連情報（連動ページ → [#15](https://github.com/tzhaya/jpcoarschema-helper/issues/15)）／アクセス権（→ [#16](https://github.com/tzhaya/jpcoarschema-helper/issues/16)）／助成情報（→ [#14](https://github.com/tzhaya/jpcoarschema-helper/issues/14)）
+- **優先度・中**: 寄与者（着手は [#12](https://github.com/tzhaya/jpcoarschema-helper/issues/12) タスク1a 完了後 — creator/contributor 境界検証の成果を流用）・権利情報・主題・内容記述・言語・バージョン情報・ファイル情報
 - **優先度・低**: 時間的範囲・位置情報・学位系・会議記述・版・部編名 ほか（資源種別依存）
 
 ## 進め方の原則
