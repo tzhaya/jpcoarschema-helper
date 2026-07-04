@@ -397,5 +397,3 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 | `jpcoar:creator` / `jpcoar:creatorName` | creator |
 
 > 出典: 上記 JPCOARスキーマ 2.0 公式説明ページ（#3 および下位項目）
-</content>
-</invoke>

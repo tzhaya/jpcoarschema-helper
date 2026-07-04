@@ -196,4 +196,3 @@ flowchart TD
 - 要素・属性の記述ルール（公式準拠）: [creator_rules.md](../reference/creator_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en
-</content>
