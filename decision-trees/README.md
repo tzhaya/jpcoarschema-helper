@@ -14,7 +14,7 @@ DOI登録（JaLC / Crossref）を重視し、必須度・`xml:lang` 要件は [J
 | 出版者 | 予定 | ― |
 | 資源タイプ | 予定 | ― |
 | 識別子 | 予定 | ― |
-| ID登録 | 予定 | ― |
+| ID登録 | ✅ 作成済 | [identifier-registration.md](identifier-registration.md) |
 
 > 展開順は DOI登録の必須項目（作成者→日付→出版者→資源タイプ→識別子→ID登録）を優先します。
 
