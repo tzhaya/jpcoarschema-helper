@@ -1,21 +1,30 @@
 # ID登録 入力フローチャート
 
-初心者が JPCOARスキーマの **ID登録** を迷わず入力できるよう、フローチャートで道筋をたどり、対応表で使用する要素・属性を確定します。
+ID登録には、DOIのURLではなく、登録機関と識別子文字列を記載します。
+同じDOIでも、`jpcoar:identifierRegistration` と `jpcoar:identifier` では値の形式と役割が異なります。
+JAIRO Cloud ではシステムが値を反映するため、手入力の要否も利用環境によって変わります。
 
-対象: JPCOARスキーマ **2.0**（要素 [#19 ID登録](https://schema.irdb.nii.ac.jp/ja/schema/2.0/19)）
-利用シーン: **DOI登録（JaLC / Crossref）を重視**。要素・属性の定義は [ID登録記述ルール（公式準拠）](../reference/identifier_registration_rules.md)、必須度は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠。
+まず DOI登録先を確定し、JAIRO Cloud の自動反映を利用するか、値を手動で記載するかを判断します。
+JaLC DOI の場合は、識別子（#18）への併記も確認します。
 
-`jpcoar:identifierRegistration` はスキーマ上 **MA（条件に当てはまる場合は記載・0-1）** で、DOIなどを登録する場合に1つだけ記載します。DOI登録（JaLC / Crossref）では **必須（1）** です。`identifierType` 属性は **M（必須）** で、登録機関を必ず指定します。要素の内容には **DOIなど識別子の値そのもの** を記載します（`identifierType` はその値がどの機関の識別子かを示す属性）。
+対象は JPCOARスキーマ **2.0** の [#19 ID登録](https://schema.irdb.nii.ac.jp/ja/schema/2.0/19) です。
+要素と属性の定義は [ID登録記述ルール（公式準拠）](../reference/identifier_registration_rules.md)、DOI登録時の必須度は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) を典拠とします。
+
+`jpcoar:identifierRegistration` は **MA（該当する場合は必須）、0-1（繰返不可）** です。
+DOIなどを登録する場合に1つだけ記載します。
+JaLC DOI と Crossref DOI の登録では **必須（1）** です。
+`identifierType` 属性は **M（必須）、1（繰返不可）** です。
+要素の内容には識別子の値そのものを記載し、属性で登録機関を示します。
 
 ## この項目の性質
 
-4観点の定義は [CONVENTIONS.md 第8節](CONVENTIONS.md) を参照。
+評価の定義は [CONVENTIONS.md 第8節](CONVENTIONS.md) を参照してください。
 
 | 観点 | 評価 |
 |------|------|
-| 入力の型 | **転記型**が中心 — 付与されたDOIの値と登録機関（`identifierType`）を転記する。JAIRO Cloud（WEKO3）利用時はシステムが「識別子付与」アクション実行後に自動反映するため、担当者による転記作業そのものが原則不要 |
-| 他項目への影響 | あり（最大級）— 全フローチャート共通の「DOI登録先は?」分岐の前提となるハブ要素。JaLCの場合は識別子（#18）にもHTTP URI形式のDOIを記載する必要があり、直接連動する |
-| 事前調査 | 必要 — DOIの登録・付与手続きが完了しているか、利用しているシステムがJAIRO Cloud（自動反映）かそれ以外（手動転記）かを確認する |
+| 入力の型 | **転記型**が中心。付与されたDOIの値と登録機関を転記する。JAIRO Cloud ではシステムが自動反映するため、担当者による転記は原則不要 |
+| 他項目への影響 | **あり（最大級）**。各フローチャートの「DOI登録先」分岐の前提となる。JaLC DOI では識別子（#18）への併記が必要 |
+| 事前調査 | 必要。DOIの登録と付与が完了しているか、JAIRO Cloud の自動反映を利用するか確認する |
 | 誤入力の影響 | DOI登録エラー（必須項目未達で登録画面がエラーに戻る）、非推奨URIスキームでの記載によるスキーマ違反、識別子（#18）との不整合によるDOI解決リンク切れ |
 
 ---
@@ -25,8 +34,8 @@
 | 入力したい情報 | 入力先 | 基本ルール |
 |--------------|--------|------------|
 | DOI登録先（機関） | `identifierType`（属性） | `JaLC` / `Crossref` から選択する（`DataCite` / `PMID` は公式語彙にあるが本ガイドの対象外） |
-| 付与されたDOIの値 | `jpcoar:identifierRegistration` | 識別子文字列そのものを記載する（URL表記・`doi:`等のスキームは不可） |
-| JaLC登録時の識別子への反映 | `jpcoar:identifier`（#18） | `identifierType="URI"` でHTTP URI形式（`https://doi.org/...`）でも記載する |
+| 付与されたDOIの値 | `jpcoar:identifierRegistration` | 識別子文字列そのものを記載する（URL表記や `doi:` などのスキームは不可） |
+| JaLC登録時の識別子への反映 | `jpcoar:identifier`（#18） | `identifierType="DOI"` でHTTP URI形式（`https://doi.org/...`）でも記載する |
 
 ---
 
@@ -62,12 +71,14 @@ flowchart TD
     A3 --> D3
     D3 -- はい --> A4["jpcoar:identifierRegistration に<br/>DOI値をidentifierType付きで記載"]
     A4 --> D4{JaLC DOIか?}
-    D4 -- はい --> A5["identifier（#18）にも<br/>HTTP URI形式（https://doi.org/...）で記載"]
+    D4 -- はい --> A5["identifier（#18）にも<br/>identifierType=DOI でHTTP URI形式<br/>（https://doi.org/...）を記載"]
     D4 -- いいえ --> END
     A5 --> END
 ```
 
-> **ポイント**: `identifierType` の選択（JaLC / Crossref）は**スキーマ層**の話、実際のDOI付与操作（JAIRO Cloudの「識別子付与」アクション等）は本フローチャートが扱う**メタデータ記入**とは別の**システム操作**です。JAIRO Cloud利用機関は、システムに任せてよい部分（DOI値の反映）と自分で確認する部分（値の妥当性）が分かれます。
+> **判断の要点**：`identifierType` は、識別子を登録した機関を示します。
+> JAIRO Cloud の「識別子付与」は、DOIを付与して値を要素へ反映するシステム操作です。
+> 自動反映を利用する場合も、登録先と反映された値が一致しているか確認します。
 
 ---
 
@@ -81,19 +92,22 @@ flowchart TD
 | | | それ以外 | #3 へ | ― | ― |
 | #3 | DOI登録・付与手続きは完了しているか | いいえ | 登録機関でのDOI登録・付与手続きを先に行う | ― | ― |
 | | | はい | DOI値を `identifierType` 付きで記載 | `jpcoar:identifierRegistration identifierType="JaLC"` | 10.18926/AMO/54590 |
-| #4 | JaLC DOIか | はい | identifier（#18）にもHTTP URI形式で記載 | `jpcoar:identifier identifierType="URI"` | https://doi.org/10.18926/AMO/54590 |
+| #4 | JaLC DOIか | はい | identifier（#18）にも `identifierType="DOI"` でHTTP URI形式を記載 | `jpcoar:identifier identifierType="DOI"` | https://doi.org/10.18926/AMO/54590 |
 | | | いいえ（Crossref） | 完了 | ― | ― |
 
 ---
 
 ## 使い分けの目安
 
+迷いやすいのは、ID登録（#19）と識別子（#18）に同じ形式の値を入れてしまうことです。
+ID登録には `prefix/suffix` 形式、識別子には資源自身を示すHTTP URI形式などを記載します。
+
 | 迷いやすいケース | 判断 | 入力先 |
 |----------------|------|--------|
-| ID登録（#19）と識別子（#18）の違い | ID登録＝どの機関にDOI登録したか／識別子＝資源自体の所在（HDL・URI） | `jpcoar:identifierRegistration`（ID登録）／`jpcoar:identifier`（識別子） |
-| JaLCでDOI登録した場合の識別子への反映要否 | 必要 — `identifier`にもHTTP URI形式で併記する | `jpcoar:identifier identifierType="URI"` |
+| ID登録（#19）と識別子（#18）の違い | ID登録は登録サービスと `prefix/suffix` 形式の値、識別子は資源自身のID（DOI、HDL、URI） | `jpcoar:identifierRegistration`（ID登録）と `jpcoar:identifier`（識別子） |
+| JaLCでDOI登録した場合の識別子への反映要否 | 必要。`identifierType="DOI"` でHTTP URI形式を併記する | `jpcoar:identifier identifierType="DOI"` |
 | JAIRO Cloud（WEKO3）利用時のDOI値の扱い | システムが「識別子付与」アクション実行後に自動反映するため、手動でDOI文字列を用意する必要は原則ない | ― |
-| DOI登録を行わない資源 | ID登録・識別子ともに記載しない（スキーマ上は条件に当てはまる場合のみ記載） | ― |
+| DOI登録を行わない資源 | ID登録（#19）は記載しない。識別子（#18）はスキーマ上 M のため、HDL または URI 等を記載する | `jpcoar:identifier` |
 
 ---
 
@@ -102,7 +116,7 @@ flowchart TD
 ### JaLC DOI（識別子との併記）
 
 ```xml
-<jpcoar:identifier identifierType="URI">https://doi.org/10.18926/AMO/54590</jpcoar:identifier>
+<jpcoar:identifier identifierType="DOI">https://doi.org/10.18926/AMO/54590</jpcoar:identifier>
 <jpcoar:identifierRegistration identifierType="JaLC">10.18926/AMO/54590</jpcoar:identifierRegistration>
 ```
 
@@ -116,14 +130,31 @@ flowchart TD
 
 ## 注記（入力ルール）
 
-- **要素の必須度**: `jpcoar:identifierRegistration` はスキーマ上 MA（条件に当てはまる場合は記載・0-1）です。DOIなどを登録する場合に1つだけ記載します。DOI登録（JaLC / Crossref）では **必須（1）** です。
-- **要素の内容とURL表記の禁止**: 要素の内容には識別子の値そのもの（例: `10.18926/AMO/54590`）を記載します。`info:doi/`・`doi:` のURIスキームや、`https://doi.org/...` のURL表記を `identifierRegistration` に使うことは非推奨（禁止）です。URL表記が必要な場合は `identifier`（#18）側で扱います。
-- **識別子（#18）との連動**: JaLC でDOIを登録する場合は、`identifierRegistration` だけでなく `identifier`（#18）にもHTTP URI形式で記載する必要があります（出典: 公式記述ルール）。識別子（#18）のフローチャートは別ページ（[Issue #4](https://github.com/tzhaya/jpcoarschema-helper/issues/4)で作成予定）で扱います。
-- **JAIRO Cloud (WEKO3) 利用機関向けの補足**: DOIの実際の付与は、ワークフローの「識別子付与」アクション（自動連番／半自動入力／自由入力）で行います。個別登録ではメタデータ入力後にこのアクションを実行し、DOIプレフィックスはシステム設定値、サフィックスは自動採番が原則です（一括登録では「識別子変更モード」でサフィックスを任意設定できます）。この画面では **Crossref DOI も選択可能**です。本フローチャートはメタデータ要素の記載方法を扱うものであり、DOI付与操作そのものの手順は [JPCOAR JAIRO Cloudマニュアル 3.4 DOIの付与](https://jpcoar.org/support/jairo-cloud/manual/item-registration/) を参照してください。JAIRO Cloud以外のシステムを利用する機関では、DOI取得後にその値を手動で `identifierRegistration` に転記します。
-- **統制語彙の範囲**: `identifierType` の統制語彙には `DataCite`・`PMID`（非推奨・現在不使用）もありますが、本ガイドはJaLC/Crossref DOI登録を主眼とするため、フローチャートの分岐はJaLC/Crossrefの二択のみとしています。DataCite DOIを登録する場合も要素・属性の使い方は同様です。
-- **DOI登録先による差分**（[対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) より）:
-  - **JaLC DOI**: ID登録は必須（1）。識別子（#18）へのHTTP URI形式での併記が必要。
-  - **Crossref DOI**: ID登録は必須（1）。
+### スキーマ層
+
+- `jpcoar:identifierRegistration` は MA、0-1です。
+  JaLC、Crossref、DataCite などへ識別子を登録する場合に1つだけ記載します。
+- `identifierType` は M、1です。
+  `JaLC`、`Crossref`、`DataCite`、`PMID` から登録機関を示す値を選びます。
+- 要素の内容には、`10.18926/AMO/54590` のような識別子文字列を記載します。
+  `info:doi/`、`doi:`、`https://doi.org/...` などのURIやURLは使用できません。
+- JaLC で DOI を登録する場合は、識別子（#18）にも `identifierType="DOI"` でHTTP URI形式を記載します。
+
+### DOI登録層
+
+[対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) では、JaLC DOI と Crossref DOI のどちらも ID登録が **必須（1）** です。
+
+JaLC DOI では、識別子（#18）へのHTTP URI形式の併記も必要です。
+Crossref DOI では、ID登録に `identifierType="Crossref"` を指定します。
+
+### 本ガイドの運用方針
+
+- JAIRO Cloud を利用する場合は、メタデータ入力後に「識別子付与」アクションを実行します。
+  システムが `identifierRegistration` と `identifier` に値を反映するため、担当者は登録先と値を確認します。
+- JAIRO Cloud 以外のシステムでは、DOIの登録と付与が完了した後に `identifierRegistration` へ値を転記します。
+- `identifierType` の統制語彙には `DataCite` と `PMID` もあります。
+  本ガイドは JaLC DOI と Crossref DOI を重視するため、フローチャートではこの2つを分岐させます。
+- JAIRO Cloud の操作手順は [JPCOAR JAIRO Cloudマニュアル 3.4 DOIの付与](https://jpcoar.org/support/jairo-cloud/manual/item-registration/) を参照してください。
 
 ---
 
@@ -133,5 +164,5 @@ flowchart TD
 - 要素・属性の記述ルール（公式準拠）: [identifier_registration_rules.md](../reference/identifier_registration_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - JAIRO Cloud (WEKO3) のDOI付与操作: [JPCOAR JAIRO Cloudマニュアル 3.4 DOIの付与](https://jpcoar.org/support/jairo-cloud/manual/item-registration/)
-- 識別子（#18）フローチャート: [Issue #4](https://github.com/tzhaya/jpcoarschema-helper/issues/4)（作成予定）
+- 識別子（#18）フローチャート: [identifier.md](identifier.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en

@@ -1,32 +1,24 @@
 # 作成者 記述ルール（公式準拠）
 
-JPCOARスキーマ **2.0** の公式説明ページに記載された、作成者（`jpcoar:creator`）関連要素の記述ルールをまとめたものです。本書の記述はすべて以下の公式ページを典拠とします。
+作成者の記述は、氏名だけでは完結しません。
+識別子、姓と名、別名、所属には、それぞれ異なる要素と属性が定められています。
 
-- #3 作成者（`jpcoar:creator`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3
-- #3-.1 作成者識別子（`jpcoar:nameIdentifier`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.1
-- #3-.2 作成者姓名（`jpcoar:creatorName`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.2
-- #3-.3 作成者姓（`jpcoar:familyName`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.3
-- #3-.4 作成者名（`jpcoar:givenName`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.4
-- #3-.5 作成者別名（`jpcoar:creatorAlternative`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.5
-- #3-.6 作成者所属（`jpcoar:affiliation`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6
-- #3-.6-.1 所属機関識別子（`jpcoar:nameIdentifier`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6-.1
-- #3-.6-.2 所属機関名（`jpcoar:affiliationName`）: https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6-.2
+このファイルは、JPCOARスキーマ **2.0** の公式説明ページから、作成者（`jpcoar:creator`）と下位項目の定義、属性、下位構造、記述ルールを整理したものです。
+記載内容は、次の公式ページのみを典拠とします。
 
-> このファイルは公式記述の要約であり、運用上の補足や DOI 登録要件は含みません。記入レベル記号の意味は [decision-trees/CONVENTIONS.md](../decision-trees/CONVENTIONS.md)、実務向けの判断手順は [decision-trees/creator.md](../decision-trees/creator.md)、DOI 要件は [JPCOAR_JaLC_Crossref_requirements.md](JPCOAR_JaLC_Crossref_requirements.md) を参照してください。
+- [#3 作成者（`jpcoar:creator`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3)
+- [#3-.1 作成者識別子（`jpcoar:nameIdentifier`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.1)
+- [#3-.2 作成者姓名（`jpcoar:creatorName`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.2)
+- [#3-.3 作成者姓（`jpcoar:familyName`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.3)
+- [#3-.4 作成者名（`jpcoar:givenName`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.4)
+- [#3-.5 作成者別名（`jpcoar:creatorAlternative`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.5)
+- [#3-.6 作成者所属（`jpcoar:affiliation`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6)
+- [#3-.6-.1 所属機関識別子（`jpcoar:nameIdentifier`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6-.1)
+- [#3-.6-.2 所属機関名（`jpcoar:affiliationName`）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/3-.6-.2)
 
----
-
-## 記入レベル・繰返回数の凡例
-
-| 記号 | 意味 |
-|------|------|
-| M | 必須（Mandatory） |
-| MA | 該当する場合は必須（Mandatory if Applicable） |
-| R | 推奨（Recommended） |
-| O | 任意（Optional） |
-| 1-N | 1回以上、繰返可 |
-| 0-N | 0回以上、繰返可（必須以外） |
-| 0-1 | 0〜1回、繰返不可 |
+> このファイルには、公式説明ページに記載されたスキーマ層の情報だけを収録します。
+> DOI登録要件と本ガイド独自の運用方針は含みません。
+> 記入レベル記号は [フローチャート共通規約](../decision-trees/CONVENTIONS.md)、実務上の判断手順は [作成者入力フローチャート](../decision-trees/creator.md)、DOI登録要件は [JPCOAR、JaLC、Crossref要件対照表](JPCOAR_JaLC_Crossref_requirements.md) を参照してください。
 
 ---
 
@@ -62,7 +54,8 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 - 学位論文の場合は必ず入力する。
 - 複数の作成者がいる場合は、第一著者から順に記入する。
-- コンテンツの作成に直接的に関与した者を「作成者」、間接的に関与した者を「寄与者」（#4）として明確に区別する。
+- コンテンツの作成に直接的に関与した者を「作成者」とする。
+- 間接的に関与した者は「寄与者」（#4）として、作成者と明確に区別する。
 - `contributorType` の統制語彙に該当する役割を持つ者は、作成者ではなく寄与者として記入する。
 
 ### 入力例
@@ -104,12 +97,13 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 | 属性 | 記入レベル | 繰返回数 | 値・備考 |
 |------|-----------|----------|----------|
-| `nameIdentifierScheme` | M（必須） | 0-1 | 統制語彙: `e-Rad_Researcher` / `NRID`（非推奨） / `ORCID` / `ISNI` / `VIAF` / `AID` / `kakenhi`（非推奨） / `Ringgold` / `GRID`（非推奨） / `ROR` |
+| `nameIdentifierScheme` | M（必須） | 1 | 統制語彙: `e-Rad_Researcher` / `NRID`（非推奨） / `ORCID` / `ISNI` / `VIAF` / `AID` / `kakenhi`（非推奨） / `Ringgold` / `GRID`（非推奨） / `ROR` |
 | `nameIdentifierURI` | MA | 0-1 | ID 確認ページへの HTTP URI（例: `https://orcid.org/0000-0001-0002-0003`） |
 
 ### 記述ルール
 
-- 作成者を一意に識別する ID を記入し、`nameIdentifierScheme` でスキーマ名を指定する。
+- 作成者を一意に識別する ID を記入する。
+- `nameIdentifierScheme` でスキーマ名を指定する。
 - 接頭辞等の情報を付けず、**ID のみを記入する**。
 - URI は ID の確認ページへのリンク形式で `nameIdentifierURI` に記入する。
 
@@ -185,7 +179,8 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 ### 記述ルール
 
-- 作成者の姓を記入する。作成者が個人であり、姓が判別可能な場合に記入する。
+- 作成者の姓を記入する。
+- 作成者が個人であり、姓が判別可能な場合に記入する。
 - 各言語コードの `familyName` の出現回数は 1 回までとする。
 
 ### 非推奨
@@ -220,7 +215,8 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 ### 記述ルール
 
-- 作成者の名を記入する。作成者が個人であり、名が判別可能な場合に記入する。
+- 作成者の名を記入する。
+- 作成者が個人であり、名が判別可能な場合に記入する。
 - ミドルネームがある場合は「ミドルネーム△名」の形式で記入する。
 - 各言語コードの `givenName` の出現回数は 1 回までとする。
 
@@ -256,7 +252,8 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 ### 記述ルール
 
-- 作成者の別名を記入する。記述方法は作成者姓名（`jpcoar:creatorName`）に準じる。
+- 作成者の別名を記入する。
+- 記述方法は作成者姓名（`jpcoar:creatorName`）に準じる。
 - 片仮名ヨミは `xml:lang="ja-Kana"`、ローマ字ヨミは `xml:lang="ja-Latn"` とする。
 
 ### 入力例
@@ -323,13 +320,14 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 
 | 属性 | 記入レベル | 繰返回数 | 値・備考 |
 |------|-----------|----------|----------|
-| `nameIdentifierScheme` | M（必須） | 0-1 | 統制語彙: `kakenhi`（非推奨） / `ISNI` / `Ringgold` / `GRID`（非推奨） / `ROR` |
+| `nameIdentifierScheme` | M（必須） | 1 | 統制語彙: `kakenhi`（非推奨） / `ISNI` / `Ringgold` / `GRID`（非推奨） / `ROR` |
 | `nameIdentifierURI` | R（推奨） | 0-1 | HTTP URI 形式。URI 未保有の場合は省略可 |
 
 ### 記述ルール
 
-- 所属機関を一意に識別する ID を記入し、`nameIdentifierScheme` でスキーマ名を指定する。
-- 接頭辞等の情報を付けず、**ID のみを記入する**（例: `000000012192178X`（ISNI）、`https://ror.org/057zh3y96`（ROR））。
+- 所属機関を一意に識別する ID を記入する。
+- `nameIdentifierScheme` でスキーマ名を指定する。
+- 接頭辞等の情報を付けず、**ID のみを記入する**。記述形式はスキーマに依存する（例: `000000012192178X`（ISNI）、`https://ror.org/057zh3y96`（ROR））。
 
 ### 非推奨
 
@@ -396,4 +394,4 @@ JPCOARスキーマ **2.0** の公式説明ページに記載された、作成�
 |------|--------|
 | `jpcoar:creator` / `jpcoar:creatorName` | creator |
 
-> 出典: 上記 JPCOARスキーマ 2.0 公式説明ページ（#3 および下位項目）
+> 出典：上記のJPCOARスキーマ 2.0 公式説明ページ（#3および下位項目）
