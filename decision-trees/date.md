@@ -1,22 +1,33 @@
 # 日付 入力フローチャート
 
-初心者が JPCOARスキーマの **日付** を迷わず入力できるよう、フローチャートで道筋をたどり、対応表で使用する要素・属性を確定します。
+日付は、値を写すだけでは入力先が決まりません。
+発行日、利用開始日、受理日では `dateType` が異なり、西暦で表せない日付には別の要素を使います。
+DOI登録では、複数の日付から登録に使う1件を選ぶ必要もあります。
 
-対象: JPCOARスキーマ **2.0**（要素 [#12 日付](https://schema.irdb.nii.ac.jp/ja/schema/2.0/12) / [#13 日付（リテラル）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/13)）
-利用シーン: **DOI登録（JaLC / Crossref）を重視**。要素・属性の定義は [日付記述ルール（公式準拠）](../reference/date_rules.md)、必須度・優先順位は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠。
+まず日付を西暦の統制形式で記載できるか確認し、記載できる場合は種類を確定します。
+そのうえで、DOI登録時の代表日付と不明時の扱いを適用します。
 
-`datacite:date` はスキーマ上 **MA（条件に当てはまる場合は記載・0-N）** で、日付があれば記載し、繰り返し記載できます。DOI登録（JaLC / Crossref）では **必須（1）** なので、登録に使う日付を必ず1つ記載します。`dateType` 属性は **M（必須）** で、日付の種類を必ず指定します。
+対象は JPCOARスキーマ **2.0** の [#12 日付](https://schema.irdb.nii.ac.jp/ja/schema/2.0/12) と [#13 日付（リテラル）](https://schema.irdb.nii.ac.jp/ja/schema/2.0/13) です。
+要素と属性の定義は [日付記述ルール（公式準拠）](../reference/date_rules.md)、DOI登録時の必須度と代表日付の優先順位は [JPCOAR/JaLC対照表 ver.1.5](../reference/JPCOAR_JaLC_Crossref_requirements.md) を典拠とします。
+
+`datacite:date` は **MA（該当する場合は必須）、0-N（繰返可）** です。
+日付情報がある場合に記載します。
+DOI登録では **必須（1）** となり、登録に使う日付を1つ記載します。
+`dateType` 属性は **M（必須）、1（繰返不可）** です。
+`datacite:date` ごとに日付の種類を指定します。
+`dcterms:date` は **O（任意）、0-N（繰返可）** です。
+統制形式で記載できない日付を補完します。
 
 ## この項目の性質
 
-4観点の定義は [CONVENTIONS.md 第8節](CONVENTIONS.md) を参照。
+評価の定義は [CONVENTIONS.md 第8節](CONVENTIONS.md) を参照してください。
 
 | 観点 | 評価 |
 |------|------|
-| 入力の型 | **解釈型＋転記型** — `dateType` 9種から資料の状況に合う種類を選ぶのが解釈、日付の値そのものは奥付・書誌からの転記 |
-| 他項目への影響 | あり — DOI登録の代表日付の選定に波及（対照表の優先順位に従う）。学位授与年月日（別要素）との関係にも注意 |
-| 事前調査 | 不要 — 奥付・書誌情報から判断できる |
-| 誤入力の影響 | DOI メタデータの発行年の誤表示、早期公開・改版時に版の同定が混乱 |
+| 入力の型 | **解釈型と転記型**。`dateType` 9種から日付の種類を選び、値は奥付や書誌情報から写す |
+| 他項目への影響 | **あり**。DOI登録の代表日付の選定に波及する。学位授与年月日は別要素であるため、混同にも注意する |
+| 事前調査 | 不要。奥付や書誌情報から判断できる |
+| 誤入力の影響 | DOIメタデータの発行年が誤って表示され、早期公開や改版で版の同定が難しくなる |
 
 ---
 
@@ -24,9 +35,9 @@
 
 | 入力したい情報 | 入力先 | 基本ルール |
 |--------------|--------|------------|
-| 発行日・公開日 | `datacite:date dateType="Issued"` | DOI登録の代表日付として最優先で記載する |
-| 作成日・更新日・受理日など | `datacite:date` ＋ 該当 `dateType` | あれば記載し、種類を `dateType` で指定する |
-| 西暦で書けない日付（年号・干支・不確定） | `dcterms:date`（リテラル） | 自由記述で記載し、`xml:lang` を付与する。西暦が分かる分は `datacite:date` も併記する |
+| 発行日、公開日 | `datacite:date dateType="Issued"` | DOI登録の代表日付として最優先で記載する |
+| 作成日、更新日、受理日など | `datacite:date` と該当する `dateType` | あれば記載し、種類を `dateType` で指定する |
+| 西暦で書けない日付（年号、干支、不確定） | `dcterms:date`（リテラル） | 自由記述で記載し、`xml:lang` を付与する。西暦が分かる場合は `datacite:date` も併記する |
 | 日付の範囲 | `datacite:date` | `開始/終了`（例 `2004-03-02/2005-06-02`）で記載する |
 
 `datacite:date` の値は W3C DTF 形式（`YYYY` / `YYYY-MM` / `YYYY-MM-DD` 等）で入力します。
@@ -49,7 +60,7 @@ flowchart TD
     Q1 -- JaLC DOI --> CTX1["JaLC 要件<br/>日付は必須（1）<br/>代表日付の優先順位を適用"]
     Q1 -- Crossref DOI --> CTX2["Crossref 要件<br/>日付は必須（1）<br/>代表日付の優先順位を適用"]
 
-    CTX0 --> D1
+    CTX0 --> D2
     CTX1 --> D1
     CTX2 --> D1
 
@@ -57,7 +68,7 @@ flowchart TD
     D1 -- "いいえ（DOI登録は日付必須）" --> AF["datacite:date dateType=Issued に<br/>9999-01-01 を記載<br/>※運用上のフォールバック（対照表）"]
     D1 -- はい --> D2{西暦の統制形式で<br/>書けるか?}
 
-    D2 -- "いいえ（年号・干支・不確定）" --> A2["dcterms:date にリテラルで記載<br/>xml:lang を付与<br/>※西暦が分かる分は datacite:date も併記"]
+    D2 -- "いいえ（年号・干支・不確定）" --> A2["dcterms:date にリテラルで記載<br/>該当する場合は xml:lang を付与<br/>※西暦が分かる分は datacite:date も併記"]
     D2 -- はい --> D3{この日付の種類は?}
 
     D3 -- "公開日・発行日" --> T1["datacite:date dateType=Issued"]
@@ -77,7 +88,9 @@ flowchart TD
     PF["値を W3C DTF 形式で記載<br/>YYYY / YYYY-MM / YYYY-MM-DD 等<br/>範囲は 開始/終了（RKMS-ISO8601）"]
 
     AF --> D6
-    A2 --> D6
+    A2 --> D2r{DOI登録に使う<br/>datacite:date は記録済みか?}
+    D2r -- "はい／DOI登録しない" --> D6
+    D2r -- "いいえ（DOI登録する）" --> AF
     PF --> D6
 
     D6{ほかに記録する日付があるか?}
@@ -85,7 +98,9 @@ flowchart TD
     D6 -- いいえ --> END([完了])
 ```
 
-> **ポイント**: `dateType` の選択は**スキーマ層**の話、代表日付の優先順位（`Issued > dateGranted > Created > Updated`）と `9999-01-01` フォールバックは**DOI登録層（運用）**の話です。両者を混同しないよう分けて扱います。`dateGranted` は `dateType` の統制語彙ではなく、学位授与年月日（別要素）由来の代表日付候補です。
+> **判断の要点**：`dateType` は、記録する日付そのものの種類を示します。
+> DOI登録時の優先順位は、複数の日付から登録に使う1件を選ぶ規則です。
+> `dateGranted` は `dateType` の統制語彙ではなく、別要素の学位授与年月日に由来する候補です。
 
 ---
 
@@ -97,7 +112,7 @@ flowchart TD
 | | | JaLC / Crossref | 日付は必須（1）。代表日付の優先順位を適用 | `datacite:date` | |
 | #2 | 登録に使う日付は判明しているか | いいえ | `Issued` に `9999-01-01`（運用上のフォールバック） | `datacite:date dateType="Issued"` | 9999-01-01 |
 | | | はい | #3 へ | ― | ― |
-| #3 | 西暦の統制形式で書けるか | いいえ | リテラルで記載し `xml:lang` 付与 | `dcterms:date xml:lang="ja"` | 寛政壬子 |
+| #3 | 西暦の統制形式で書けるか | いいえ | リテラルで記載し、該当する場合は `xml:lang` 付与。DOI登録時は代表用の `datacite:date` も必要 | `dcterms:date xml:lang="ja"` | 寛政壬子 |
 | | | はい | #4 へ | ― | ― |
 | #4 | 日付の種類は | 公開日・発行日 | `dateType="Issued"` | `datacite:date dateType="Issued"` | 2015-10-01 |
 | | | 作成日 | `dateType="Created"` | `datacite:date dateType="Created"` | 2015-09-01 |
@@ -114,10 +129,16 @@ flowchart TD
 
 ## 使い分けの目安
 
+迷いやすいのは、資料に現れた日付の呼び名と `dateType` をそのまま対応させてよいかどうかです。
+日付が示す出来事を確認してから、入力先を選びます。
+
 | 迷いやすいケース | 判断 | 入力先 |
 |----------------|------|--------|
 | 雑誌に掲載された発行年月日 | 発行日 | `datacite:date dateType="Issued"` |
 | リポジトリで公開を開始した日 | 利用開始日 | `datacite:date dateType="Available"` |
+| 早期公開（オンライン先行公開日と正式発行日の両方がある） | 先行公開は利用開始日、正式発行は発行日。両方あれば代表は `Issued` | 先行公開は `datacite:date dateType="Available"`、正式発行は `datacite:date dateType="Issued"` |
+| 査読が完了した日 | 専用の `dateType` はない | 受理日が確認できる場合のみ `Accepted`（受理日）を記載。査読完了日そのものは記載しない |
+| 学位授与年月日 | `dateType` の値ではなく別要素 | `dcndl:dateGranted`（`datacite:date` ではない） |
 | 「寛政壬子」「崇禎17」など西暦でない日付 | リテラル | `dcterms:date xml:lang="..."`（西暦が分かれば `datacite:date` も併記） |
 | 観測・収集が一定期間にわたる場合 | 範囲 | `datacite:date dateType="Collected">開始/終了` |
 | DOI登録するが日付が不明 | フォールバック | `datacite:date dateType="Issued">9999-01-01`（運用） |
@@ -132,14 +153,14 @@ flowchart TD
 <datacite:date dateType="Issued">2015-10-01</datacite:date>
 ```
 
-### 発行日＋利用開始日
+### 発行日と利用開始日
 
 ```xml
 <datacite:date dateType="Issued">2015-10-01</datacite:date>
 <datacite:date dateType="Available">2016-01-01</datacite:date>
 ```
 
-### 西暦でない日付（リテラル＋西暦併記）
+### 西暦でない日付（リテラルと西暦の併記）
 
 ```xml
 <datacite:date dateType="Issued">1792</datacite:date>
@@ -156,15 +177,37 @@ flowchart TD
 
 ## 注記（入力ルール）
 
-- **要素の必須度**: `datacite:date` はスキーマ上 MA（条件に当てはまる場合は記載・0-N）で、あれば記載し、繰り返し記載できます。DOI登録（JaLC / Crossref）では **必須（1）** なので、登録に使う日付を必ず1つ記載します。
-- **`dateType` は必須**: `datacite:date` を記載する場合、種類を表す `dateType` 属性は M（必須）です。つまり、日付の値だけでなく「発行日」「作成日」などの種類も必ず選びます。
-- **値の形式**: W3C Date and Time Formats（`YYYY` / `YYYY-MM` / `YYYY-MM-DD` / `YYYY-MM-DDThh:mmTZD`）。範囲は RKMS-ISO8601 に従い `開始/終了` 形式で記載します。
-- **`datacite:date`（型付き）と `dcterms:date`（リテラル）の使い分け**: 西暦の確定した日付は `datacite:date`、年号・干支・不確定年など統制形式で書けない日付は `dcterms:date` に記載します。西暦紀年が分かる場合は `datacite:date` の併用が推奨されます。
-- **代表日付の優先順位（DOI登録層・運用）**: 複数の日付がある場合、DOI登録で代表として用いる日付は対照表の優先順 **`Issued > dateGranted > Created > Updated`** で決まります。これは DOI登録の運用ルールであり、スキーマの `dateType` 選択とは別レイヤーです。なお `dateGranted` は `dateType` の統制語彙ではなく、学位授与年月日（別要素）由来の候補です。
-- **日付不明時のフォールバック（DOI登録層・運用）**: DOI登録で日付が判明しない場合、`datacite:date dateType="Issued"` に `9999-01-01` を記載します（出典: 対照表 ver.1.5）。これはスキーマの記述ではなく運用上の措置です。
-- **DOI登録先による差分**（[対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) より）:
-  - **JaLC DOI**: 日付は必須（1）。
-  - **Crossref DOI**: 日付は必須（1）。
+### スキーマ層
+
+- `datacite:date` は MA、0-Nです。
+  発行日などの関連する日付情報がある場合に記載し、複数の日付は要素を繰り返します。
+- `dateType` は M、1です。
+  `datacite:date` ごとに、`Issued`、`Created`、`Updated`、`Accepted`、`Available` などから1つを選びます。
+- 値は W3C Date and Time Formats（`YYYY` / `YYYY-MM` / `YYYY-MM-DD` / `YYYY-MM-DDThh:mmTZD`）で記載します。
+  範囲は RKMS-ISO8601 に従い、`開始/終了` 形式で記載します。
+- `dcterms:accessRights` が `embargoed access` の場合は、`dateType="Available"` で利用開始日を記載します。
+- 学位授与年月日は `dateType` の値ではありません。
+  別要素の `dcndl:dateGranted`（#33、MA）に記載します。
+- `dcterms:date` は O、0-Nです。
+  年号、干支、不確定年など、統制形式で記載できない日付に使用します。
+  西暦紀年が分かる場合は、対応する `datacite:date` の併用が推奨されます。
+
+### DOI登録層
+
+[対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) では、JaLC DOI と Crossref DOI のどちらも日付が **必須（1）** です。
+
+複数の日付がある場合は、**`Issued > dateGranted > Created > Updated`** の順で登録に使う代表日付を選びます。
+`dateGranted` は別要素の学位授与年月日に由来する候補です。
+
+日付が判明しない場合は、`datacite:date dateType="Issued"` に `9999-01-01` を記載します。
+
+### 本ガイドの運用方針
+
+- オンライン先行公開日は `Available`、正式発行日は `Issued` として記載します。
+  両方がある場合、DOI登録の代表日付には `Issued` を用います。
+- 査読完了日に対応する専用の `dateType` はありません。
+  `Accepted` は受理日であるため、実際の受理日を確認できる場合に限って記載します。
+- 日付の呼び名だけで `dateType` を決めず、その日付が示す出来事を資料上で確認します。
 
 ---
 

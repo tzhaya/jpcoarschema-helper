@@ -1,9 +1,12 @@
 # jpcoarschema-helper
 
-JPCOARスキーマ 2.0 の各項目を初心者が迷わず入力できるよう、FAO の [LODE-BD 3.0](https://doi.org/10.4060/cb2209en) を参考に作成したガイド集です。
+JPCOARスキーマの項目名だけを見ても、どの値を選び、どの属性を付ければよいかは決まりません。
+DOIを登録する場合は、同じ項目でも JaLC と Crossref で要件が変わります。
 
-フローチャートで入力の道筋をたどり、対応表で使用する要素・属性と実例を確定します。
-GitHub 上で Mermaid 図がそのまま描画されます。
+このリポジトリは、JPCOARスキーマ 2.0 の各項目を初心者が迷わず入力できるようにするガイド集です。
+FAO の [LODE-BD 3.0](https://doi.org/10.4060/cb2209en) を参考に、判断の順序をフローチャートで示し、対応表と入力例で使用する要素と属性を確定します。
+
+フローチャートは Mermaid で記述しているため、GitHub 上でそのまま確認できます。
 
 ## 対象
 
@@ -17,30 +20,42 @@ GitHub 上で Mermaid 図がそのまま描画されます。
 | タイトル | [decision-trees/title.md](decision-trees/title.md) | `dc:title` / `dcterms:alternative` (#1, #2) |
 | 作成者 | [decision-trees/creator.md](decision-trees/creator.md) | `jpcoar:creator` と下位項目 (#3) |
 | 日付 | [decision-trees/date.md](decision-trees/date.md) | `datacite:date` / `dcterms:date` (#12, #13) |
+| 資源タイプ | [decision-trees/resource-type.md](decision-trees/resource-type.md) | `dc:type` (#15) |
+| 識別子 | [decision-trees/identifier.md](decision-trees/identifier.md) | `jpcoar:identifier` (#18) |
 | ID登録 | [decision-trees/identifier-registration.md](decision-trees/identifier-registration.md) | `jpcoar:identifierRegistration` (#19) |
 
 ## 使い方
 
-1. 登録したい項目のフローチャートファイルを開く
-2. フローチャートの「資源／登録する文献」から出発し、分岐に従って進む
-3. 対応表・注記で要素名・属性・入力例を確認する
+1. 登録する項目のフローチャートを開く
+2. 「資源／登録する文献」から出発し、資料と DOI 登録先に合う分岐をたどる
+3. 到達した処理を対応表で照合し、要素名、属性、入力例を確定する
+4. 注記でスキーマ要件、DOI登録要件、本ガイドの運用方針の違いを確認する
 
 ## 入力項目の性質（評価の物差し）
 
-JPCOARスキーマの入力項目は、作業の性質がそれぞれ異なります。本ガイドでは各項目を次の4観点で評価し、各フローチャートページの冒頭「**この項目の性質**」に明示しています。
+書誌から写せば決まる項目もあれば、資料の性質を解釈しなければ選べない項目もあります。
+外部データベースでの調査が必要な項目や、一つの選択が後続項目の必須度を変える項目もあります。
+
+この違いを見落とすと、簡単な転記に時間をかける一方で、慎重に判断すべき分岐を通り過ぎてしまいます。
+そこで各フローチャートの冒頭に「**この項目の性質**」を置き、次の4観点で入力作業を評価しています。
 
 | 観点 | 問い |
 |------|------|
 | 入力の型 | 資料の性質を**解釈**して統制語彙から選ぶのか（解釈型）、書誌から**写す**だけか（転記型）、外部を**調べて**決めるのか（調査型） |
-| 他項目への影響 | その選択が他項目の必須度・値に波及するか |
+| 他項目への影響 | その選択が他項目の必須度や値に波及するか |
 | 事前調査 | 入力前に調べることがあるか（情報源はどこか） |
 | 誤入力の影響 | 間違えた場合に何が起きるか（DOI登録エラー、公開ポリシー違反 など） |
 
-**解釈型**で他項目への影響が大きい項目（資源タイプ・出版タイプ・アクセス権 など）ほど、フローチャートを丁寧にたどる価値があります。フローチャートの整備順もこの観点で優先度を付けています（→ [ROADMAP.md](ROADMAP.md)）。記載基準の詳細は [decision-trees/CONVENTIONS.md](decision-trees/CONVENTIONS.md) 第8節を参照してください。
+**解釈型**で他項目への影響が大きい資源タイプ、出版タイプ、アクセス権などは、誤入力が一項目の中で終わりません。
+後続項目の必須度や DOI 登録の成否まで変わるため、フローチャートを丁寧にたどる必要があります。
+
+この判断負荷は、フローチャートの整備順にも反映しています（→ [ROADMAP.md](ROADMAP.md)）。
+評価基準の詳細は [decision-trees/CONVENTIONS.md](decision-trees/CONVENTIONS.md) 第8節を参照してください。
 
 ## 今後の計画
 
-フローチャート整備の着手順は [ROADMAP.md](ROADMAP.md) にまとめています。DOI登録の必須項目を最優先とし、進捗は [Issue](https://github.com/tzhaya/jpcoarschema-helper/issues) で管理します。
+タイトル、作成者、日付、資源タイプ、識別子、ID登録のガイドは揃いました。
+次の整備対象と優先順位は [ROADMAP.md](ROADMAP.md)、個別作業の進捗は [Issue](https://github.com/tzhaya/jpcoarschema-helper/issues) で管理しています。
 
 ## 記号凡例（フローチャート共通）
 
@@ -48,16 +63,17 @@ JPCOARスキーマの入力項目は、作業の性質がそれぞれ異なり�
 |------|------|
 | 楕円 `([ ])` | 開始 / 終了 |
 | ひし形 `{ }` | 判断（Yes / No や種類の分岐） |
-| 長方形 `[ ]` | 処理（入力・設定する内容） |
-| 平行四辺形 `[/ /]` | 入力・情報源 |
+| 長方形 `[ ]` | 処理（入力または設定する内容） |
+| 平行四辺形 `[/ /]` | 入力または情報源 |
 
 ## 参照資料
 
-[reference/](reference/) に、各フローチャートが典拠とする資料を収録しています。
+フローチャートだけを読んでも、スキーマの公式定義と DOI 登録時の運用要件は区別できません。
+[reference/](reference/) には、両者を追跡して照合できる資料を収録しています。
 
 | ファイル | 内容 |
 |----------|------|
-| [JPCOAR_JaLC_Crossref_requirements.md](reference/JPCOAR_JaLC_Crossref_requirements.md) | ジャーナルアーティクル・書籍の必須項目と JaLC / Crossref DOI の差分マッピング |
+| [JPCOAR_JaLC_Crossref_requirements.md](reference/JPCOAR_JaLC_Crossref_requirements.md) | ジャーナルアーティクルと書籍の必須項目、JaLC DOI と Crossref DOI の差分マッピング |
 | [JPCOARschema_guide.md](reference/JPCOARschema_guide.md) | JPCOARスキーマ各項目（1.0.2 / 2.0）の項番と公式説明ページへのリンク一覧 |
 
 ## 関連リンク
@@ -71,4 +87,5 @@ JPCOARスキーマの入力項目は、作業の性質がそれぞれ異なり�
 このプロジェクトは [CC0 1.0 Universal (CC0 1.0) Public Domain Dedication](https://creativecommons.org/publicdomain/zero/1.0/) の下で公開されています。詳細は [LICENSE](LICENSE) ファイルを参照してください。
 
 ## 作者
+
 - Takanori Hayashi
