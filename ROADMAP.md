@@ -10,12 +10,12 @@ DOI登録に欠かせない項目が抜けていれば登録作業が止まり�
 
 | プロパティ | 状態 |
 |-----------|------|
-| タイトル（#1, #2） | ✅ 作成済（[#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) で確定版に引き上げ済み） |
+| タイトル（#1, #2） | ✅ 作成済（完了した [#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) で確定版に引き上げ済み） |
 | 作成者（#3） | ✅ 作成済 |
 | 日付（#12, #13） | ✅ 作成済 |
 | ID登録（#19） | ✅ 作成済 |
-| 識別子（#18） | ✅ 作成済（[#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4)） |
-| 資源タイプ（#15） | ✅ 作成済（[#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3)） |
+| 識別子（#18） | ✅ 作成済（[#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4) 完了） |
+| 資源タイプ（#15） | ✅ 作成済（[#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3) 完了） |
 
 ## フェーズ1 DOI登録を支える中核項目
 
@@ -28,8 +28,8 @@ Crossref では英語名が必須になるため、単なる転記項目とし�
 | 順 | プロパティ | 要素 | Issue | ねらい |
 |----|-----------|------|-------|--------|
 | 1 | ID登録 | `jpcoar:identifierRegistration`（#19） | [#5](https://github.com/tzhaya/jpcoarschema-helper/issues/5) | DOI登録先を確定するハブ。他フローチャートの前提となる |
-| 2 | 識別子 | `jpcoar:identifier`（#18） | [#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4) | 資源の所在（HDL > URI）。ID登録との違いを明確化 |
-| 3 | 資源タイプ | `dc:type`（#15） | [#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3) | ジャーナル系と書籍系を分岐させ、後続の必須度を決める |
+| 2 | 識別子 | `jpcoar:identifier`（#18） | ✅ [#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4) 完了 | 資源の所在（HDL > URI）。ID登録との違いを明確化 |
+| 3 | 資源タイプ | `dc:type`（#15） | ✅ [#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3) 完了 | ジャーナル系と書籍系を分岐させ、後続の必須度を決める |
 | 4 | 日付 | `datacite:date`（#12, #13） | [#1](https://github.com/tzhaya/jpcoarschema-helper/issues/1) | `dateType` 優先順位（Issued > dateGranted > Created > Updated） |
 | 5 | 出版者 | `dc:publisher`（#10, #11） | [#2](https://github.com/tzhaya/jpcoarschema-helper/issues/2) | Crossref は `xml:lang="en"` 必須 |
 
@@ -38,14 +38,16 @@ Crossref では英語名が必須になるため、単なる転記項目とし�
 ## フェーズ2 品質と運用基盤の整備
 
 ページが増えるほど、一覧の更新漏れ、リンク切れ、Mermaid 構文エラーを目視だけで防ぐのは難しくなります。
-雛形は確定しましたが、一覧の一元化と自動チェックは残っています。
+雛形の確定（#6）と既存フローチャートのエッジケース検証（#12）は完了しました。
+一覧の一元化と自動チェックを完了しました。
 
 | プロパティまたは作業 | Issue |
 |-----------------|-------|
-| `title.md`（雛形）を確定版に引き上げ | [#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) |
-| フローチャート一覧の二重メンテ解消（README 進捗の一元化） | [#7](https://github.com/tzhaya/jpcoarschema-helper/issues/7) |
+| `title.md`（雛形）を確定版に引き上げ | ✅ [#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) 完了 |
+| 既存フローチャートのエッジケース検証 | ✅ [#12](https://github.com/tzhaya/jpcoarschema-helper/issues/12) 完了 |
+| フローチャート一覧の二重メンテ解消（README 進捗の一元化） | ✅ [#7](https://github.com/tzhaya/jpcoarschema-helper/issues/7) 完了 |
 | Issue テンプレート / CONTRIBUTING の整備 | [#9](https://github.com/tzhaya/jpcoarschema-helper/issues/9) |
-| CIによる Mermaid 構文チェックとリンクチェック | [#10](https://github.com/tzhaya/jpcoarschema-helper/issues/10) |
+| CIによる Mermaid 構文チェックとリンクチェック | ✅ [#10](https://github.com/tzhaya/jpcoarschema-helper/issues/10) 完了 |
 
 ## フェーズ3 残りプロパティの拡充
 
@@ -59,7 +61,7 @@ DOI必須項目の次に着手するべきなのは、項番の若い項目と�
 着手時は [トラッキング Issue #8](https://github.com/tzhaya/jpcoarschema-helper/issues/8) から個別 Issue を切り出します。
 
 - **優先度：高**　収録物名、収録物識別子、巻と号、開始ページと終了ページ（Crossref で必須になる項目）、出版タイプと関連情報（連動ページ → [#15](https://github.com/tzhaya/jpcoarschema-helper/issues/15)）、アクセス権（→ [#16](https://github.com/tzhaya/jpcoarschema-helper/issues/16)）、助成情報（→ [#14](https://github.com/tzhaya/jpcoarschema-helper/issues/14)）
-- **優先度：中**　寄与者（[#12](https://github.com/tzhaya/jpcoarschema-helper/issues/12) タスク1a の creator/contributor 境界検証を流用）、権利情報、主題、内容記述、言語、バージョン情報、ファイル情報
+- **優先度：中**　寄与者（完了した [#12](https://github.com/tzhaya/jpcoarschema-helper/issues/12) タスク1a の creator/contributor 境界検証を流用）、権利情報、主題、内容記述、言語、バージョン情報、ファイル情報
 - **優先度：低**　時間的範囲、位置情報、学位系、会議記述、版、部編名など（資源種別に依存）
 
 ## 進め方の原則
@@ -68,4 +70,4 @@ DOI必須項目の次に着手するべきなのは、項番の若い項目と�
 - 入力ガイドは、項目の性質、早見表、Mermaid フローチャート、対応表、使い分け、入力例、注記、参考の共通構成に揃える。
 - スキーマの公式定義、DOI登録要件、本ガイドの運用方針を混同しない。
 - DOI登録の必須度と `xml:lang` 要件は、必ず [対照表](reference/JPCOAR_JaLC_Crossref_requirements.md) を典拠とする。
-- ページ追加時は [decision-trees/README.md](decision-trees/README.md)、ルート [README.md](README.md)、ルール追加時は [reference/README.md](reference/README.md) も更新する（[#7](https://github.com/tzhaya/jpcoarschema-helper/issues/7) で一覧を一元化予定）。
+- ページ追加時は、フローチャート一覧・進捗の正本である [decision-trees/README.md](decision-trees/README.md) を更新する。ルール追加時は [reference/README.md](reference/README.md) も更新する。

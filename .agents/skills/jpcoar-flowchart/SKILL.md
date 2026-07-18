@@ -50,7 +50,7 @@ JPCOARスキーマ 2.0 の1プロパティについて、公式定義のまと�
    - 対象が**書籍系か**で Crossref の `xml:lang="en"` 必須などが変わる要素は、資源タイプ分岐を追加。
    - 対照表の語（必須 / 条件付必須 / 任意 / 推奨）を**そのまま**使う（言い換えない）。
 6. Mermaid は `flowchart TD`。GitHub で描画されるか構文を意識する（ラベル内の特殊文字に注意）。
-7. [decision-trees/README.md](../../../decision-trees/README.md) と [README.md](../../../README.md) の一覧表の状態を更新。
+7. [decision-trees/README.md](../../../decision-trees/README.md) の一覧表（フローチャート一覧・進捗の正本）を更新。
 
 ## ステップ3: 照合・検証（省略しない）
 
@@ -63,7 +63,7 @@ JPCOARスキーマ 2.0 の1プロパティについて、公式定義のまと�
 - [ ] Crossref の `xml:lang="en"` 必須・ORCID限定・書籍系の対象タイプを正しく反映したか
 - [ ] フローチャート / 対応表 / 注記 / 入力例が相互に矛盾しないか
 - [ ] 「この項目の性質」の4観点（入力の型・他項目への影響・事前調査・誤入力の影響）を CONVENTIONS.md 第8節の定義に沿って記入したか
-- [ ] 一覧表（README 2か所）の状態を更新したか
+- [ ] [decision-trees/README.md](../../../decision-trees/README.md) の一覧表を更新したか
 
 ## ステップ4: 文章を推敲する（省略しない）
 

@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: JPCOARスキーマ公式
-    url: https://jpcoar.repo.nii.ac.jp/
-    about: JPCOARメタデータスキーマの公式ページ
+  - name: JPCOARスキーマ公式説明
+    url: https://schema.irdb.nii.ac.jp/ja/schema
+    about: 要素定義・記入レベル・属性を確認する
+  - name: JPCOAR/JaLC/Crossref 対照表
+    url: https://github.com/tzhaya/jpcoarschema-helper/blob/main/reference/JPCOAR_JaLC_Crossref_requirements.md
+    about: DOI登録の必須度と xml:lang 要件を確認する

@@ -15,14 +15,8 @@ FAO の [LODE-BD 3.0](https://doi.org/10.4060/cb2209en) を参考に、判断の
 
 ## フローチャート一覧
 
-| 項目 | ファイル | 対象要素 |
-|------|----------|----------|
-| タイトル | [decision-trees/title.md](decision-trees/title.md) | `dc:title` / `dcterms:alternative` (#1, #2) |
-| 作成者 | [decision-trees/creator.md](decision-trees/creator.md) | `jpcoar:creator` と下位項目 (#3) |
-| 日付 | [decision-trees/date.md](decision-trees/date.md) | `datacite:date` / `dcterms:date` (#12, #13) |
-| 資源タイプ | [decision-trees/resource-type.md](decision-trees/resource-type.md) | `dc:type` (#15) |
-| 識別子 | [decision-trees/identifier.md](decision-trees/identifier.md) | `jpcoar:identifier` (#18) |
-| ID登録 | [decision-trees/identifier-registration.md](decision-trees/identifier-registration.md) | `jpcoar:identifierRegistration` (#19) |
+入力フローチャートと整備状況の一覧は、[フローチャート集の一覧](decision-trees/README.md#一覧)で管理しています。
+ページを追加・更新するときは、同一覧を更新してください。
 
 ## 使い方
 
