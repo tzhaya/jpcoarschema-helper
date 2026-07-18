@@ -1,8 +1,4 @@
 exclude_path = [".git"]
-exclude = [
-  "\\{\\{公式URL\\}\\}",
-  "\\.\\./decision-trees/\\{\\{element\\}\\}\\.md",
-]
 max_retries = 3
 retry_wait_time = 2
 timeout = 20

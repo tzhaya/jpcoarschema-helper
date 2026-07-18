@@ -33,7 +33,7 @@ jobs:
           mkdir -p "$output_dir"
           for input in decision-trees/*.md; do
             output="$output_dir/$(basename "$input")"
-            mmdc --input "$input" --output "$output"
+            mmdc --input "$input" --output "$output" --puppeteerConfigFile .github/puppeteer-config.json
           done
 
   internal-links:

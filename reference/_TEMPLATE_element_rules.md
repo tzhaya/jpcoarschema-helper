@@ -24,12 +24,12 @@
 このファイルは、JPCOARスキーマ **2.0** の公式説明ページから、{{プロパティ名}}関連要素の定義、属性、下位構造、記述ルールを整理したものです。
 記載内容は、次の公式ページのみを典拠とします。
 
-- [#{{番号}} {{要素の日本語名}}（`{{要素名}}`）]({{公式URL}})
-<!-- 関連する主要素と下位項目の公式ページを列挙する -->
+- #{{番号}} {{要素の日本語名}}（`{{要素名}}`）: 公式URLを記入
+<!-- 関連する主要素と下位項目の公式ページを、実際のURLを指定したMarkdownリンクとして列挙する -->
 
 > このファイルには、公式説明ページに記載されたスキーマ層の情報だけを収録します。
 > DOI登録要件と本ガイド独自の運用方針は含みません。
-> 記入レベル記号は [フローチャート共通規約](../decision-trees/CONVENTIONS.md)、実務上の判断手順は [{{プロパティ名}}入力フローチャート](../decision-trees/{{element}}.md)、DOI登録要件は [JPCOAR、JaLC、Crossref要件対照表](JPCOAR_JaLC_Crossref_requirements.md) を参照してください。
+> 記入レベル記号は [フローチャート共通規約](../decision-trees/CONVENTIONS.md)、実務上の判断手順は対応する `decision-trees/<element>.md`、DOI登録要件は [JPCOAR、JaLC、Crossref要件対照表](JPCOAR_JaLC_Crossref_requirements.md) を参照してください。
 
 ---
 
