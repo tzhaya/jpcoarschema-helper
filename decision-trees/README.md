@@ -6,15 +6,18 @@ DOI登録（JaLC / Crossref）を重視し、必須度・`xml:lang` 要件は [J
 
 ## 一覧
 
-| プロパティ | 状態 | ページ |
-|-----------|------|--------|
-| タイトル | ✅ 作成済 | [title.md](title.md) |
-| 作成者 | ✅ 作成済 | [creator.md](creator.md) |
-| 日付 | ✅ 作成済 | [date.md](date.md) |
-| 出版者 | 予定 | ― |
-| 資源タイプ | ✅ 作成済 | [resource-type.md](resource-type.md) |
-| 識別子 | ✅ 作成済 | [identifier.md](identifier.md) |
-| ID登録 | ✅ 作成済 | [identifier-registration.md](identifier-registration.md) |
+この表がフローチャート一覧と整備状況の正本です。
+ページを追加したとき、または状態を変更したときは、この表だけを更新します。
+
+| プロパティ | 状態 | ページ | 対象要素 |
+|-----------|------|--------|----------|
+| タイトル | ✅ 作成済み | [title.md](title.md) | `dc:title` / `dcterms:alternative`（#1、#2） |
+| 作成者 | ✅ 作成済み | [creator.md](creator.md) | `jpcoar:creator` と下位項目（#3） |
+| 日付 | ✅ 作成済み | [date.md](date.md) | `datacite:date` / `dcterms:date`（#12、#13） |
+| 出版者 | 予定 | ― | `dc:publisher`（#10、#11） |
+| 資源タイプ | ✅ 作成済み | [resource-type.md](resource-type.md) | `dc:type`（#15） |
+| 識別子 | ✅ 作成済み | [identifier.md](identifier.md) | `jpcoar:identifier`（#18） |
+| ID登録 | ✅ 作成済み | [identifier-registration.md](identifier-registration.md) | `jpcoar:identifierRegistration`（#19） |
 
 > 展開順は DOI登録の必須項目（作成者→日付→出版者→資源タイプ→識別子→ID登録）を優先します。
 
