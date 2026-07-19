@@ -5,49 +5,20 @@ DOI登録に欠かせない項目が抜けていれば登録作業が止まり�
 
 整備順は、**DOI登録（JaLC / Crossref）の必須度**と、入力時に必要な**人間の判断量**から決めます。
 必須度と `xml:lang` 要件は [JPCOAR/JaLC対照表 ver.1.5](reference/JPCOAR_JaLC_Crossref_requirements.md) に準拠し、個別作業の進捗は [Issue](https://github.com/tzhaya/jpcoarschema-helper/issues) で管理します。
-
-## 現在の状況
-
-| プロパティ | 状態 |
-|-----------|------|
-| タイトル（#1, #2） | ✅ 作成済（完了した [#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) で確定版に引き上げ済み） |
-| 作成者（#3） | ✅ 作成済 |
-| 日付（#12, #13） | ✅ 作成済 |
-| ID登録（#19） | ✅ 作成済 |
-| 識別子（#18） | ✅ 作成済（[#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4) 完了） |
-| 資源タイプ（#15） | ✅ 作成済（[#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3) 完了） |
+整備済みプロパティの一覧は、正本である [decision-trees/README.md の一覧表](decision-trees/README.md#一覧)を参照してください。本ファイルでは進捗を重複管理しません。
 
 ## フェーズ1 DOI登録を支える中核項目
 
 DOI登録先を決める ID登録と、後続項目の必須度を左右する資源タイプを先に固めたことで、各フローチャートの分岐を同じ前提で記述できるようになりました。
 タイトル、作成者、日付、識別子も整備済みです。
 
-このフェーズで残るのは出版者です。
-Crossref では英語名が必須になるため、単なる転記項目として扱うことはできません。
-
-| 順 | プロパティ | 要素 | Issue | ねらい |
-|----|-----------|------|-------|--------|
-| 1 | ID登録 | `jpcoar:identifierRegistration`（#19） | [#5](https://github.com/tzhaya/jpcoarschema-helper/issues/5) | DOI登録先を確定するハブ。他フローチャートの前提となる |
-| 2 | 識別子 | `jpcoar:identifier`（#18） | ✅ [#4](https://github.com/tzhaya/jpcoarschema-helper/issues/4) 完了 | 資源の所在（HDL > URI）。ID登録との違いを明確化 |
-| 3 | 資源タイプ | `dc:type`（#15） | ✅ [#3](https://github.com/tzhaya/jpcoarschema-helper/issues/3) 完了 | ジャーナル系と書籍系を分岐させ、後続の必須度を決める |
-| 4 | 日付 | `datacite:date`（#12, #13） | [#1](https://github.com/tzhaya/jpcoarschema-helper/issues/1) | `dateType` 優先順位（Issued > dateGranted > Created > Updated） |
-| 5 | 出版者 | `dc:publisher`（#10, #11） | [#2](https://github.com/tzhaya/jpcoarschema-helper/issues/2) | Crossref は `xml:lang="en"` 必須 |
-
-> 表の番号は依存関係に基づく推奨順です。ID登録と資源タイプを先に整備し、後続ページの DOI 登録先分岐と必須度を揃えています。
+このフェーズで残るのは、出版者 `dc:publisher`（#10、#11 → [Issue #2](https://github.com/tzhaya/jpcoarschema-helper/issues/2)）です。
+Crossref では英語名（`xml:lang="en"`）が必須になるため、単なる転記項目として扱うことはできません。
 
 ## フェーズ2 品質と運用基盤の整備
 
 ページが増えるほど、一覧の更新漏れ、リンク切れ、Mermaid 構文エラーを目視だけで防ぐのは難しくなります。
-雛形の確定（#6）と既存フローチャートのエッジケース検証（#12）は完了しました。
-一覧の一元化と自動チェックを完了しました。
-
-| プロパティまたは作業 | Issue |
-|-----------------|-------|
-| `title.md`（雛形）を確定版に引き上げ | ✅ [#6](https://github.com/tzhaya/jpcoarschema-helper/issues/6) 完了 |
-| 既存フローチャートのエッジケース検証 | ✅ [#12](https://github.com/tzhaya/jpcoarschema-helper/issues/12) 完了 |
-| フローチャート一覧の二重メンテ解消（README 進捗の一元化） | ✅ [#7](https://github.com/tzhaya/jpcoarschema-helper/issues/7) 完了 |
-| Issue テンプレート / CONTRIBUTING の整備 | [#9](https://github.com/tzhaya/jpcoarschema-helper/issues/9) |
-| CIによる Mermaid 構文チェックとリンクチェック | ✅ [#10](https://github.com/tzhaya/jpcoarschema-helper/issues/10) 完了 |
+雛形の確定、エッジケース検証、一覧の一元化、CI による Mermaid 構文チェックとリンクチェック、Issue テンプレートと CONTRIBUTING の整備（[#9](https://github.com/tzhaya/jpcoarschema-helper/issues/9)）は完了しており、フェーズ2の作業は完了しています。
 
 ## フェーズ3 残りプロパティの拡充
 
