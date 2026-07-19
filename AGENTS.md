@@ -23,8 +23,8 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
 
 共通の骨格、凡例、方針は [decision-trees/CONVENTIONS.md](decision-trees/CONVENTIONS.md) に集約されています。各ページに再掲せず、同ファイルを参照してください。
 
-フローチャートの作成・改訂時は、`jpcoar-flowchart` スキル（[.agents/skills/jpcoar-flowchart/SKILL.md](.agents/skills/jpcoar-flowchart/SKILL.md)）に定義された手順に従ってください。
-内容の照合後は、`cognitive-rhythm-writing` と、その依存規範である `japanese-tech-writing` を使用して文章を推敲します。
+フローチャートの作成・改訂時は、`jpcoar-flowchart` スキル（正本: [.claude/skills/jpcoar-flowchart/SKILL.md](.claude/skills/jpcoar-flowchart/SKILL.md)。`.agents/skills/` 配下は同ファイルへのシンボリックリンク）に定義された手順に従ってください。
+文章は執筆時から `japanese-tech-writing` に従って書き、新規作成と大規模改訂では `cognitive-rhythm-writing` で導入と注記を推敲します。
 
 ## 最重要の原則: 3層を混同しない
 
@@ -72,6 +72,7 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
    - `reference/<element>_rules.md` を要素・属性の典拠とします。
    - [DOI要件の対照表](reference/JPCOAR_JaLC_Crossref_requirements.md)から、登録しない / JaLC / Crossref の分岐や、書籍系での `xml:lang="en"` 必須などの要件を織り込みます。
    - Mermaid は `flowchart TD` を使用します。
+   - 文章はこの時点から `japanese-tech-writing` の規範に従って書きます。
 
 3. **照合・検証する（省略禁止）**
    - 公式にない概念を追加していないか確認します。
@@ -80,13 +81,14 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
    - スキーマ層、DOI登録層、本ガイドの運用方針が混ざっていないか確認します。
    - Mermaid が GitHub 上で描画できる構文か、内部リンクが切れていないか確認します。
 
-4. **文章を推敲する（省略禁止）**
-   - `cognitive-rhythm-writing` と `japanese-tech-writing` を使用します。
+4. **文章を点検する**
+   - 本文はステップ2の執筆時から `japanese-tech-writing` に従って書いているため、ここでは規範からの逸脱を点検します。
+   - 新規作成と大規模改訂では、`cognitive-rhythm-writing` を導入と注記に適用します。軽微な修正では、独立した推敲工程を省略できます。
    - 冒頭は、入力時に生じる具体的な迷いや判断の差から始めます。
    - 一文一行を基本とし、段落ごとに一つの論点を扱います。
    - 文書の進行だけを述べる予告や総括を置かず、対象の性質に基づいて節をつなぎます。
    - 推敲によって、公式定義、記入レベル、DOI要件の用語、Mermaidの分岐、XML例の意味を変更しません。
-   - 推敲後にステップ3の照合をもう一度行います。
+   - 推敲で変更した文について、ステップ3の該当項目を再照合します。変更がなければ再照合は不要です。
 
 ## 一覧表の更新（追加・状態変更時に必須）
 
@@ -107,5 +109,5 @@ ID登録・資源タイプを先に固めると、各フローチャート冒頭
 - 関係のないファイルや記述を変更しないでください。
 - 公式情報を参照した箇所は、出典を追跡できる形で記述してください。
 - 推測を公式要件として断定しないでください。不明点は典拠を確認し、確認できない場合はその旨を明記してください。
-- `decision-trees/*.md` の作成・改訂後は、`cognitive-rhythm-writing` と `japanese-tech-writing` による推敲を行ってください。
+- `decision-trees/*.md` は `japanese-tech-writing` に従って書き、新規作成と大規模改訂では `cognitive-rhythm-writing` で導入と注記を推敲してください。
 - 変更後は、対になる `reference/*_rules.md` と `decision-trees/*.md` の整合性、および関連する一覧表を確認してください。

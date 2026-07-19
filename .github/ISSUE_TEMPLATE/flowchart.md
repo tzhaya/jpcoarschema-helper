@@ -14,7 +14,7 @@ labels: enhancement
 ## DOI登録要件
 <!-- DOIを登録しない / JaLC / Crossref の別と、該当する必須度・xml:lang要件を対照表から記載 -->
 
-作成手順は [jpcoar-flowchart スキル](../../.agents/skills/jpcoar-flowchart/SKILL.md) に従ってください。
+作成手順は [jpcoar-flowchart スキル](../../.claude/skills/jpcoar-flowchart/SKILL.md) に従ってください。
 
 ## 受け入れ基準
 - [ ] CONVENTIONS.md に準拠した構成
