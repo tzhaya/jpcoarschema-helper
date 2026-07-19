@@ -18,9 +18,7 @@ Crossref では英語名（`xml:lang="en"`）が必須になるため、単な�
 ## フェーズ2 品質と運用基盤の整備
 
 ページが増えるほど、一覧の更新漏れ、リンク切れ、Mermaid 構文エラーを目視だけで防ぐのは難しくなります。
-雛形の確定、エッジケース検証、一覧の一元化、CI による Mermaid 構文チェックとリンクチェックは完了しました。
-
-このフェーズで残るのは、Issue テンプレートと CONTRIBUTING の整備（[#9](https://github.com/tzhaya/jpcoarschema-helper/issues/9)）です。
+雛形の確定、エッジケース検証、一覧の一元化、CI による Mermaid 構文チェックとリンクチェック、Issue テンプレートと CONTRIBUTING の整備（[#9](https://github.com/tzhaya/jpcoarschema-helper/issues/9)）は完了しており、フェーズ2の作業は完了しています。
 
 ## フェーズ3 残りプロパティの拡充
 
