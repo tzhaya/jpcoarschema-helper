@@ -132,7 +132,7 @@ flowchart TD
 
 | 旧概念等 | JPCOAR 2.0での扱い |
 |----------|--------------------|
-| `preprint` | 資源タイプ語彙には存在しない。版の区別は `jpcoar:version`（別要素）で表現し、DOI登録時の `dc:type` は `other` とする |
+| `preprint` | 資源タイプ語彙には存在しない。論文のバージョン情報は出版タイプ `oaire:version`（#17）で表現し、DOI登録時の `dc:type` は `other` とする |
 | `periodical` | 2.0では廃止され、`journal` と `other periodical` に分かれた。対照表 ver.1.5 のジャーナル系一覧には旧語彙 `periodical` が残るため、スキーマ層では2.0語彙を優先する |
 | `internal report`、`report part` | 2.0では廃止。資料の性質に応じて `report`、`research report`、`technical report` などを選ぶ |
 | `conference object` | 旧称。2.0では語彙名 `conference output` を使用する（URI `c_c94f` は同一） |
@@ -177,6 +177,9 @@ flowchart TD
   [公式別表](https://schema.irdb.nii.ac.jp/ja/2.0/resource_type_vocabulary)から語彙を1つ選び、対応するCOAR URIと組にして入力します。
 - `departmental bulletin paper`、`journal article`、`article` は同じURI `http://purl.org/coar/resource_type/c_6501` を共有します。
   URIだけで判断せず、公式定義に沿って要素値を区別します。
+- 版の情報は資源タイプではなく、別の要素に記載します。
+  論文のバージョン情報は出版タイプ `oaire:version`（#17、MA、0-1）、データのバージョン情報はバージョン情報 `datacite:version`（#16、O、0-1）を使用します。
+  公式は前者を「論文の場合、必ず記入する」、後者を「データの場合のみ使用する」と定めています。
 
 ### DOI登録層
 
@@ -204,6 +207,8 @@ JaLC DOIの書籍系にthesis系は含まれません。
 
 - JPCOARスキーマ 2.0 #15 資源タイプ: https://schema.irdb.nii.ac.jp/ja/schema/2.0/15
 - 資源タイプ語彙別表【Ver2.0】: https://schema.irdb.nii.ac.jp/ja/2.0/resource_type_vocabulary
+- JPCOARスキーマ 2.0 #16 バージョン情報: https://schema.irdb.nii.ac.jp/ja/schema/2.0/16
+- JPCOARスキーマ 2.0 #17 出版タイプ: https://schema.irdb.nii.ac.jp/ja/schema/2.0/17
 - 要素・属性の記述ルール: [resource_type_rules.md](../reference/resource_type_rules.md)
 - DOI登録要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - ID登録: [identifier-registration.md](identifier-registration.md)
