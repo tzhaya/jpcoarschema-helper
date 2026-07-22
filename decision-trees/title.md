@@ -35,7 +35,8 @@ DOI登録の有無にかかわらず、資料を代表するタイトルを必�
 | 本タイトル | `dc:title` | 資源を代表するタイトルを必ず1つ以上記載する |
 | 別言語の同一タイトル（並列タイトル） | `dc:title` | 言語ごとに `dc:title` を繰り返し記載する |
 | 独立した副題、目次タイトル、奥付タイトル | `dcterms:alternative` | 本タイトル以外のタイトルとして記載する。標題紙で本タイトルと一体の副題は、本ガイドの運用上 `dc:title` に含める |
-| シリーズ名、収録物名 | `jpcoar:sourceTitle` など | タイトル要素には入れず、収録物名として扱う |
+| 章・論文を直接収録する図書名・雑誌名 | `jpcoar:relation` または `jpcoar:sourceTitle` | タイトル要素には入れない。JPCOAR #1 に従い上位資料との関連として記録し、収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用する |
+| 独立した資料が属するシリーズ名・叢書名 | `jpcoar:relation relationType="isPartOf"` | タイトル要素や収録物名へ一律に割り当てない |
 | カナ読み、ローマ字読み | `dc:title` | `ja-Kana` または `ja-Latn` を使い、`ja` の本文タイトルも併記する |
 
 入力先を決めた後、タイトルの言語を `xml:lang` で示します。
@@ -90,15 +91,22 @@ flowchart TD
     D3a -- "別言語の同一タイトル" --> A3a["並列タイトル<br/>dc:title を言語別に繰り返し記載"]
     D3a -- "副題（サブタイトル）" --> D3b{標題紙で本タイトルと一体か?}
     D3a -- "目次・奥付など本タイトル以外" --> A3b["その他のタイトル<br/>dcterms:alternative に記載"]
-    D3a -- "シリーズ名・収録物名" --> A3d["dc:title/dcterms:alternative には入れない<br/>収録物名 jpcoar:sourceTitle 等で扱う"]
+    D3a -- "章・論文の上位資料名" --> A3d["dc:title/dcterms:alternative には入れない<br/>公式 #1: jpcoar:relation<br/>収録物情報: jpcoar:sourceTitle"]
+    D3a -- "シリーズ名・叢書名" --> A3e["dc:title/dcterms:alternative には入れない<br/>jpcoar:relation relationType=isPartOf を検討"]
+    D3a -- "部編名" --> D3c{登録対象のタイトルの一部か?}
 
     D3b -- "一体（本タイトルの一部）" --> A3c["dc:title に本タイトルと続けて記載<br/>※本ガイドの運用上の判断"]
     D3b -- "独立した補足" --> A3b
+    D3c -- はい --> A3f["dc:title に含める"]
+    D3c -- いいえ --> A3g["dcndl:volumeTitle または<br/>上位資料との関連として記録"]
 
     A3a --> D3
     A3b --> D3
     A3c --> D3
     A3d --> D3
+    A3e --> D3
+    A3f --> D3
+    A3g --> D3
 
     END([完了])
 ```
@@ -129,7 +137,9 @@ flowchart TD
 | #4 | ほかのタイトルはあるか | 別言語の同一（代表）タイトル | 並列タイトルとして `dc:title` を言語別に繰り返し記載 | `dc:title xml:lang="fr"` | Etudes sur l'agrometeorologie |
 | | | 副題（標題紙で本タイトルと一体） | 本ガイドの運用上、本タイトルの一部として `dc:title` に続けて記載 | `dc:title xml:lang="ja"` | 農業気象の研究：第2版に向けて |
 | | | 独立した副題、目次タイトル、奥付タイトルなど | 「その他のタイトル」として記載する（該当する場合は必須、MA） | `dcterms:alternative xml:lang="ja"` | 第2版に向けて |
-| | | シリーズ名、収録物名 | `dc:title` と `dcterms:alternative` には入れず、`jpcoar:sourceTitle` などで扱う | `jpcoar:sourceTitle` | （タイトルには記入しない） |
+| | | 章・論文を直接収録する図書名・雑誌名 | `dc:title` と `dcterms:alternative` には入れない。JPCOAR #1 に従い上位資料との関連として記録し、収録物情報を構造化する場合は収録物名を使用する | `jpcoar:relation` / `jpcoar:sourceTitle` | （タイトルには記入しない） |
+| | | 独立した資料が属するシリーズ名・叢書名 | タイトル要素や収録物名へ一律に割り当てず、シリーズ全体との関連として記録する | `jpcoar:relation relationType="isPartOf"` | （タイトルには記入しない） |
+| | | 部編名 | 資料上の表示と構成を確認し、登録対象のタイトルの一部、部編名、上位資料との関連のいずれかを判断する | `dc:title` / `dcndl:volumeTitle` / `jpcoar:relation` | 第1部　基礎編 |
 | | | いいえ | 完了 | ― | ― |
 
 ---
@@ -146,7 +156,9 @@ flowchart TD
 | 本タイトルとは独立した補足の副題「第2版に向けて」 | その他のタイトル | `dcterms:alternative` |
 | 代表タイトルの別言語版ではない訳題（代表でない翻訳タイトル） | その他のタイトル | `dcterms:alternative`（独自の「翻訳タイトル」区分は作らず、代表性で振り分ける） |
 | 翻訳資料で原著の原タイトルも示したい | 原タイトル | 翻訳資料自体の代表タイトルは `dc:title`、原タイトルは `dcterms:alternative` または関連情報 |
-| シリーズ名、叢書名（例「◯◯叢書」） | 収録物名 | `dc:title` と `dcterms:alternative` には入れず、`jpcoar:sourceTitle` などで扱う |
+| 章・論文を直接収録する図書名・雑誌名 | 登録対象に対する上位資料 | `dc:title` と `dcterms:alternative` には入れず、`jpcoar:relation` で関連を記録する。収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用する |
+| 独立した資料が属するシリーズ名・叢書名（例「◯◯叢書」） | シリーズ全体との関連 | 原則として `jpcoar:relation relationType="isPartOf"`。`jpcoar:sourceTitle` へ一律に割り当てない |
+| 部編名（例「第1部　基礎編」） | 登録対象のタイトル構成を確認 | タイトルの一部なら `dc:title`、独立した部編名なら `dcndl:volumeTitle`、上位資料を示す場合は `jpcoar:relation` を検討する |
 | 日本語タイトルの読みを検索用に入れたい | ヨミ | `dc:title xml:lang="ja-Kana"` または `ja-Latn` |
 
 ---
@@ -196,8 +208,9 @@ flowchart TD
   `dcterms:alternative` は、同じ言語コードでも複数回記載できます。
 - `dc:title` は優先度の高い言語から記載します。
 - カナヨミ `ja-Kana` またはローマ字ヨミ `ja-Latn` を記載する場合は、`xml:lang="ja"` の本タイトルも併記します。
-- 掲載誌名や収録物名は、`dc:title` と `dcterms:alternative` のどちらにも混入させません。
-  `jpcoar:sourceTitle` などの収録物名要素を使用します。
+- 掲載誌名や上位資料名は、`dc:title` と `dcterms:alternative` のどちらにも混入させません。
+  章などを収録する図書全体は、JPCOAR #1 に従い `jpcoar:relation` に記録します。
+  雑誌名・図書名などの収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用します。
 
 ### DOI登録層
 
@@ -221,8 +234,11 @@ Crossref DOI の書籍系は、`book`、`book part`、`technical report`、`rese
   別言語の代表タイトルは `dc:title`、代表ではない訳題は `dcterms:alternative` に振り分けます。
 - 翻訳資料では、その資料自体の代表タイトルを `dc:title` に記載します。
   原著の原タイトルは `dcterms:alternative` または関連情報で扱います。
-- シリーズ名と叢書名は収録物名として扱います。
-  部編名は資料上の表示と構成を確認し、本タイトルの一部か収録物名かを判断します。
+- シリーズ名・叢書名は、タイトル要素や収録物名へ一律に割り当てません。
+  独立した資料が属するシリーズ・叢書として記録する場合は、原則として `jpcoar:relation` の `relationType="isPartOf"` を使用します。
+  これは、JPCOAR #20 のシリーズに関する説明と、国立国会図書館「メタデータ流通ガイドライン：古典籍編」の対応表に基づく運用です。
+- 部編名は資料上の表示と構成を確認し、登録対象そのもののタイトルの一部、`dcndl:volumeTitle` に記録する部編名、上位資料との関連のいずれに当たるかを判断します。
+  個別事例の境界は公式資料だけでは一律に確定できないため、この判定は本ガイドの運用方針です。
 
 ---
 
@@ -230,6 +246,10 @@ Crossref DOI の書籍系は、`book`、`book part`、`technical report`、`rese
 
 - JPCOARスキーマ 2.0 #1 タイトル: https://schema.irdb.nii.ac.jp/ja/schema/2.0/1
 - JPCOARスキーマ 2.0 #2 その他のタイトル: https://schema.irdb.nii.ac.jp/ja/schema/2.0/2
+- JPCOARスキーマ 2.0 #20 関連情報: https://schema.irdb.nii.ac.jp/ja/schema/2.0/20
+- JPCOARスキーマ 2.0 #25 収録物名: https://schema.irdb.nii.ac.jp/ja/schema/2.0/25
+- JPCOARスキーマ 2.0 #37 部編名: https://schema.irdb.nii.ac.jp/ja/schema/2.0/37
+- 国立国会図書館 メタデータ流通ガイドライン：古典籍編: https://ndlsearch.ndl.go.jp/guideline/historical
 - 要素・属性の記述ルール（公式準拠）: [title_rules.md](../reference/title_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en
