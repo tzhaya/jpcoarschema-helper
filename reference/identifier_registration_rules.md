@@ -44,10 +44,14 @@ ID登録では、識別子の値と、その識別子を登録した機関を一
 ### 記述ルール
 
 - ID登録は、JaLC、Crossref、DataCite などへ識別子（DOI等）を登録する場合に記入する。
+- 資源自身の識別子は、識別子（#18）に記入する。
+- ID登録は、JaLCとのデータ連携のためにのみ使用する。
 - 要素の内容には、登録した識別子の値をそのまま記入する。
   例えば、DOIのサフィックスを含む文字列が該当する。
 - `identifierType` 属性で、その値がどの登録機関の識別子かを示す。
-- JaLCでDOIを登録する場合は、`identifierRegistration` だけでなく `identifier`（#18）要素にも、HTTP URI形式（`https://doi.org/...`）で記入する必要がある。
+- JaLC DOI と Crossref DOI は、junii2 の `selfDOI` に対応する。
+- JaLCでDOIを登録する場合は、`identifierRegistration` だけでなく `identifier`（#18）要素にも、`identifierType="DOI"` を指定し、HTTP URI形式（`https://doi.org/...`）で記入する必要がある。
+- DOI登録の詳細は、[IRDBデータ提供機関のためのDOI管理・メタデータ入力ガイドライン：JPCOARスキーマ編](http://id.nii.ac.jp/1458/00000135/)に従う。
 
 ### 非推奨
 
@@ -66,8 +70,12 @@ ID登録では、識別子の値と、その識別子を登録した機関を一
 
 ## マッピング（参考）
 
-| 要素 | 対応 |
+| 要素 | junii2 |
 |------|------|
-| `jpcoar:identifierRegistration` / `identifierType` | 対応する上位語彙なし（JPCOAR固有） |
+| `jpcoar:identifierRegistration` | `selfDOI`（JaLC DOI） |
+| `identifierType` | `ra`（RA属性） |
+
+> 公式説明ページは junii2 側の語（`selfDOI`、`ra`）を列挙するのみで、要素と属性への割り当ては明示していません。
+> 上表の割り当ては、各語の意味とJPCOAR側の構造に基づく解釈です。
 
 > 出典：上記のJPCOARスキーマ 2.0 公式説明ページ（#19）
