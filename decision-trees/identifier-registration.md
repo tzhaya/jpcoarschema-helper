@@ -106,7 +106,6 @@ ID登録には `prefix/suffix` 形式、識別子には資源自身を示すHTTP
 |----------------|------|--------|
 | ID登録（#19）と識別子（#18）の違い | ID登録は登録サービスと `prefix/suffix` 形式の値、識別子は資源自身のID（DOI、HDL、URI） | `jpcoar:identifierRegistration`（ID登録）と `jpcoar:identifier`（識別子） |
 | JaLCでDOI登録した場合の識別子への反映要否 | 必要。`identifierType="DOI"` でHTTP URI形式を併記する | `jpcoar:identifier identifierType="DOI"` |
-| JAIRO Cloud（WEKO3）利用時のDOI値の扱い | システムが「識別子付与」アクション実行後に自動反映するため、手動でDOI文字列を用意する必要は原則ない | ― |
 | DOI登録を行わない資源 | ID登録（#19）は記載しない。識別子（#18）はスキーマ上 M のため、HDL または URI 等を記載する | `jpcoar:identifier` |
 
 ---
@@ -138,7 +137,11 @@ ID登録には `prefix/suffix` 形式、識別子には資源自身を示すHTTP
   `JaLC`、`Crossref`、`DataCite`、`PMID` から登録機関を示す値を選びます。
 - 要素の内容には、`10.18926/AMO/54590` のような識別子文字列を記載します。
   `info:doi/`、`doi:`、`https://doi.org/...` などのURIやURLは使用できません。
+- 資源自身の識別子は、識別子（#18）に記載します。
+- ID登録（#19）は、JaLCとのデータ連携のためにのみ使用します。
+- JaLC DOI と Crossref DOI は、junii2 の `selfDOI` に対応します。
 - JaLC で DOI を登録する場合は、識別子（#18）にも `identifierType="DOI"` でHTTP URI形式を記載します。
+- DOI登録の詳細は、[IRDBデータ提供機関のためのDOI管理・メタデータ入力ガイドライン：JPCOARスキーマ編](http://id.nii.ac.jp/1458/00000135/)に従います。
 
 ### DOI登録層
 
@@ -161,6 +164,7 @@ Crossref DOI では、ID登録に `identifierType="Crossref"` を指定します
 ## 参考
 
 - JPCOARスキーマ 2.0 #19 ID登録: https://schema.irdb.nii.ac.jp/ja/schema/2.0/19
+- DOI登録の詳細: [IRDBデータ提供機関のためのDOI管理・メタデータ入力ガイドライン：JPCOARスキーマ編](http://id.nii.ac.jp/1458/00000135/)
 - 要素・属性の記述ルール（公式準拠）: [identifier_registration_rules.md](../reference/identifier_registration_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
 - JAIRO Cloud (WEKO3) のDOI付与操作: [JPCOAR JAIRO Cloudマニュアル 3.4 DOIの付与](https://jpcoar.org/support/jairo-cloud/manual/item-registration/)
