@@ -139,7 +139,6 @@ ID登録には `prefix/suffix` 形式、識別子には資源自身を示すHTTP
   `info:doi/`、`doi:`、`https://doi.org/...` などのURIやURLは使用できません。
 - 資源自身の識別子は、識別子（#18）に記載します。
 - ID登録（#19）は、JaLCとのデータ連携のためにのみ使用します。
-- JaLC DOI と Crossref DOI は、junii2 の `selfDOI` に対応します。
 - JaLC で DOI を登録する場合は、識別子（#18）にも `identifierType="DOI"` でHTTP URI形式を記載します。
 - DOI登録の詳細は、[IRDBデータ提供機関のためのDOI管理・メタデータ入力ガイドライン：JPCOARスキーマ編](http://id.nii.ac.jp/1458/00000135/)に従います。
 

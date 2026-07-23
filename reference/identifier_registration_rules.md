@@ -70,9 +70,12 @@ ID登録では、識別子の値と、その識別子を登録した機関を一
 
 ## マッピング（参考）
 
-| 要素 | 対応 |
+| 要素 | junii2 |
 |------|------|
 | `jpcoar:identifierRegistration` | `selfDOI`（JaLC DOI） |
 | `identifierType` | `ra`（RA属性） |
+
+> 公式説明ページは junii2 側の語（`selfDOI`、`ra`）を列挙するのみで、要素と属性への割り当ては明示していません。
+> 上表の割り当ては、各語の意味とJPCOAR側の構造に基づく解釈です。
 
 > 出典：上記のJPCOARスキーマ 2.0 公式説明ページ（#19）
