@@ -1,7 +1,8 @@
 # 作成者 入力フローチャート
 
 作成者の入力では、氏名を転記する前に、その人物や団体が資料の作成に直接関与したかを確かめます。
-編者、監修者、翻訳者など、間接的に関与した者は寄与者として扱うためです。
+編者や監修者など、間接的に関与した者は寄与者として扱います。
+翻訳者は公式に入力先が明示されていないため、本ガイドでは寄与者として扱います。
 
 作成者であることを確定したら、まず姓名または団体名を記載します。
 そのうえで、姓と名の分割、ヨミ、識別子、所属を補います。
@@ -21,7 +22,7 @@
 | 観点 | 評価 |
 |------|------|
 | 入力の型 | **転記型＋調査型**。氏名と所属名は資料から転記し、作成者識別子（ORCID）と所属機関識別子（ROR 等）は外部で調べる。作成者か寄与者かの切り分けは解釈を伴う |
-| 他項目への影響 | **あり**。翻訳者、編者、監修者などを寄与者（#4 `jpcoar:contributor`）へ振り分ける |
+| 他項目への影響 | **あり**。編者や監修者などを寄与者（#4 `jpcoar:contributor`）へ振り分ける。翻訳者も本ガイドの解釈では寄与者へ振り分ける |
 | 事前調査 | 任意だが推奨。ORCID（https://orcid.org）と ROR（https://ror.org）で識別子を検索する。見つからなければ名称のみで記載できる |
 | 誤入力の影響 | 同姓同名の混同や研究業績との不整合が起きる。作成者姓名や Crossref DOI で必要な `xml:lang` が欠けると、DOI登録エラーになる |
 
@@ -33,7 +34,7 @@
 |--------------|--------|------------|
 | 氏名・名称（まずこれを入れる） | `jpcoar:creatorName` | 姓名または団体名を1文字列で必ず記載する（作成者がある場合は条件付必須） |
 | 個人名を姓と名に分ける | `jpcoar:familyName` ＋ `jpcoar:givenName` | 判別できる場合は `creatorName` に加えて補足的に記載する |
-| カナ読み・ローマ字読み | `jpcoar:creatorName` ／ `jpcoar:creatorAlternative` | あれば `ja-Kana` / `ja-Latn` で記載し、`ja` の本文も併記する |
+| カナ読み・ローマ字読み | `jpcoar:creatorName` ／ `jpcoar:creatorAlternative` | あれば `ja-Kana` / `ja-Latn` で記載する。本ガイドでは `ja` の本文も併記する |
 | 作成者識別子（ORCID 等） | `jpcoar:nameIdentifier` | あれば記載し、`nameIdentifierScheme` で種類を示す |
 | 所属機関 | `jpcoar:affiliationName` | できれば記載し、`jpcoar:affiliation` の下に入れる |
 
@@ -58,7 +59,7 @@ flowchart TD
     D0 -- いいえ --> ENDX([作成者は記載しない<br/>※スキーマ上 MA・0-N])
     D0 -- はい --> DC{その人物・団体は<br/>本文の主たる作成者か?}
 
-    DC -- "いいえ（編者・監修者・翻訳者など貢献者）" --> ENDC([寄与者 jpcoar:contributor（#4）へ<br/>※本フローの対象外<br/>contributorType で役割を指定])
+    DC -- "いいえ（編者・監修者などの寄与者）" --> ENDC([寄与者 jpcoar:contributor（#4）へ<br/>※本フローの対象外<br/>contributorType で役割を指定])
     DC -- "はい（主たる作成者）" --> Q1{DOI登録先は?}
 
     Q1 -- 登録しない --> CTX0["通常入力<br/>xml:lang は原則付与"]
@@ -79,7 +80,7 @@ flowchart TD
     A2b --> P3
 
     P3["xml:lang を設定<br/>ja / en 等<br/>※Crossref は必須"] --> D3{ヨミを付与するか?}
-    D3 -- "はい（カナ／ローマ字）" --> A3["creatorName を xml:lang=ja-Kana / ja-Latn で繰返<br/>※xml:lang=ja の本文も必ず併記"]
+    D3 -- "はい（カナ／ローマ字）" --> A3["creatorName を xml:lang=ja-Kana / ja-Latn で繰返<br/>※本ガイドの運用上、xml:lang=ja の本文も併記"]
     D3 -- いいえ --> D4
     A3 --> D4
 
@@ -99,7 +100,8 @@ flowchart TD
 ```
 
 > **判断の要点**：最初に、その人物や団体が資料の作成に直接関与したかを確かめます。
-> 編者、監修者、翻訳者などは、作成者ではなく寄与者 `jpcoar:contributor`（#4）に記載します。
+> 編者や監修者などは、作成者ではなく寄与者 `jpcoar:contributor`（#4）に記載します。
+> 翻訳者は、本ガイドでは寄与者に記載すると解釈します。
 > 作成者であれば、まず `jpcoar:creatorName` に氏名または名称を記載します。
 > Crossref DOI では姓名に `xml:lang` が必須となり、作成者識別子は ORCID に限られます。
 
@@ -117,7 +119,7 @@ flowchart TD
     S0d -- いいえ --> SEND([所属は記載しない])
     S0d -- "はい" --> S1{作成者は個人か団体か?}
 
-    S1 -- "団体（nameType=Organizational）" --> SORG([原則、団体作成者自身には所属を付けない<br/>※運用上の目安])
+    S1 -- "団体（nameType=Organizational）" --> SORG([原則、団体作成者自身には所属を付けない<br/>※本ガイドの運用上の判断])
     S1 -- 個人 --> S2["jpcoar:affiliation を追加<br/>（複数所属は繰返して表現・R・0-N）"]
 
     S2 --> S3["jpcoar:affiliationName に機関名を記載<br/>正式名称・機関名まで（部局名は書かない）<br/>コンテンツ作成時点の所属"]
@@ -129,7 +131,7 @@ flowchart TD
 
     S5{所属機関識別子はあるか?}
     S5 -- "はい" --> S5a["jpcoar:nameIdentifier ＋ nameIdentifierScheme<br/>ROR を第一候補（ISNI / Ringgold も可）<br/>kakenhi / GRID は非推奨"]
-    S5 -- "いいえ／見つからない" --> S5b["名称のみで記載してよい<br/>※国内機関は名称のみが多数（運用上の補足）"]
+    S5 -- "いいえ／見つからない" --> S5b["名称のみで記載<br/>※本ガイドの運用上の判断"]
     S5a --> S6
     S5b --> S6
 
@@ -151,7 +153,7 @@ flowchart TD
 |------|------|------|-----------|-----------|--------|
 | #0 | 作成者はいるか | いいえ | 作成者は記載しない（スキーマ上 MA・0-N） | ― | ― |
 | | | はい | 主たる作成者か貢献者かを判定（次行） | `jpcoar:creator` | |
-| #0b | 本文の主たる作成者か | いいえ（編者・監修者・翻訳者など） | 寄与者へ回す（本フロー対象外・`contributorType` で役割指定） | `jpcoar:contributor`（#4） | ― |
+| #0b | 本文の主たる作成者か | いいえ（編者や監修者など） | 寄与者へ回す（本フロー対象外、`contributorType` で役割指定） | `jpcoar:contributor`（#4） | ― |
 | | | はい（主たる作成者） | #1 へ（第一著者から順に） | `jpcoar:creator` | |
 | #1 | DOI登録先は | 登録しない / JaLC | 通常要件で続行（姓名は条件付必須） | | |
 | | | Crossref | 姓名は `xml:lang` 必須・識別子は ORCID 限定 | | |
@@ -180,14 +182,14 @@ flowchart TD
 | 「国立情報学研究所」など団体名 | 団体 | `jpcoar:creatorName nameType="Organizational"`（姓・名には分けない） |
 | 編者（編著書） | 作成に間接的に関与した者 | 寄与者 `jpcoar:contributor` `contributorType="Editor"`（#4） |
 | 監修者 | 同上 | 寄与者 `jpcoar:contributor` `contributorType="Supervisor"`（#4） |
-| 翻訳者のみの資料 | 原著者を作成者、翻訳者は貢献者。専用値がない | 原著者=`jpcoar:creator` ／ 翻訳者=`jpcoar:contributor` `contributorType="Other"`（#4） |
+| 翻訳者のみの資料 | 本ガイドでは、原著者を作成者、翻訳者を寄与者と解釈する。専用値がないため翻訳者には `Other` を使用する | 原著者=`jpcoar:creator` ／ 翻訳者=`jpcoar:contributor` `contributorType="Other"`（#4） |
 | 研究データの作成者と管理者 | 作成者と維持管理者を区別 | 作成者=`jpcoar:creator` ／ 管理者=`jpcoar:contributor` `contributorType="DataManager"` または `"DataCurator"`（#4） |
 | 会議・シンポジウムの主催団体 | 提供機関 | 寄与者 `jpcoar:contributor` `contributorType="HostingInstitution"`（`nameType="Organizational"`）（#4） |
-| 口述資料の話者・聞き手 | 話者を作成者、聞き手は貢献者。専用値がない | 話者=`jpcoar:creator` ／ 聞き手=`jpcoar:contributor` `contributorType="Other"` または `"RelatedPerson"`（#4） |
+| 口述資料の話者・聞き手 | 本ガイドでは、話者を作成者、聞き手を寄与者と解釈する。専用値がない | 話者=`jpcoar:creator` ／ 聞き手=`jpcoar:contributor` `contributorType="Other"` または `"RelatedPerson"`（#4） |
 | 権利者（著作権者） | 寄与者ではない | 権利者情報 `jpcoar:rightsHolder`（#7）へ（`contributorType` に RightsHolder は存在しない） |
 | 助成者（ファンダー） | 寄与者ではない | 助成情報 `jpcoar:fundingReference`（#23）へ（`contributorType` に Funder は存在しない） |
-| 氏名の読みを検索用に入れたい | ヨミ | `jpcoar:creatorName xml:lang="ja-Kana"` または `ja-Latn`（`ja` も併記） |
-| 旧姓・筆名など別の名前 | 別名 | `jpcoar:creatorAlternative` |
+| 氏名の読みを検索用に入れたい | ヨミ。本ガイドの運用上、`ja` の本文も併記する | `jpcoar:creatorName xml:lang="ja-Kana"` または `ja-Latn` |
+| 旧姓・筆名など別の名前 | 本ガイドでは別名として扱う | `jpcoar:creatorAlternative` |
 
 ---
 
@@ -252,9 +254,8 @@ flowchart TD
 - `xml:lang` は一つの要素に一つの言語を指定します。
   各言語コードの `creatorName`、`familyName`、`givenName` は、それぞれ1回までです。
 - カナヨミ `ja-Kana` とローマ字ヨミ `ja-Latn` は `jpcoar:creatorName` に記載します。
-  いずれかを記載する場合は、`xml:lang="ja"` の本文も併記します。
-- 旧姓や筆名などは `jpcoar:creatorAlternative` に記載します。
-  記述方法は `jpcoar:creatorName` に準じます。
+- `jpcoar:creatorAlternative` には作成者の別名を記載し、記述方法は `jpcoar:creatorName` に準じます。
+  同じ言語でも複数の別名を記載できます。
 - 作成者識別子の `nameIdentifierScheme` には、`e-Rad_Researcher`、`ORCID`、`ISNI`、`VIAF`、`AID`、`Ringgold`、`ROR` などを使用します。
   `NRID`、`kakenhi`、`GRID` は非推奨です。
 - 識別子の値には接頭辞を付けず、IDのみを記載します。
@@ -281,9 +282,9 @@ flowchart TD
 | `Distributor` | 頒布者 | 資料の頒布者 |
 
 JPCOARスキーマ 2.0 の `contributorType` 統制語彙は18値です。
-DataCite にある `Translator`、`RightsHolder`、`Funder`、`RegistrationAgency` は含まれません。
+この統制語彙に `Translator`、`RightsHolder`、`Funder`、`RegistrationAgency` という値はありません。
 
-- 翻訳者は、専用値がないため `jpcoar:contributor` の `contributorType="Other"` に記載します。
+- 本ガイドでは、翻訳者を `jpcoar:contributor` の `contributorType="Other"` に記載すると解釈します。
 - 権利者は寄与者ではなく、権利者情報 `jpcoar:rightsHolder`（#7）に記載します。
 - 助成者は寄与者ではなく、助成情報 `jpcoar:fundingReference`（#23）に記載します。
 
@@ -293,19 +294,21 @@ DataCite にある `Translator`、`RightsHolder`、`Funder`、`RegistrationAgenc
 
 | DOI登録先 | 作成者姓名 | 姓名・姓・名の `xml:lang` | 作成者識別子 | 所属機関名 |
 |-----------|------------|--------------------------|--------------|------------|
-| JaLC DOI | 条件付必須 | 推奨 | スキームの制限なし | 対照表の要件に従う |
-| Crossref DOI | 条件付必須 | 必須 | ORCID 限定 | 複数の場合は `xml:lang` 必須 |
+| JaLC DOI | 条件付必須 | 推奨 | スキームの制限なし | 任意。複数の場合は `xml:lang` 必須 |
+| Crossref DOI | 条件付必須 | 必須 | ORCID 限定 | 任意。複数の場合は `xml:lang` 必須 |
 
 作成者姓名の条件付必須とは、作成者を記載する場合に `jpcoar:creatorName` が必須になることを指します。
 
 ### 本ガイドの運用方針
 
 - 入力漏れと多言語の混在を防ぐため、原則としてすべての氏名に `xml:lang` を付与します。
+- カナヨミまたはローマ字ヨミを記載する場合は、`xml:lang="ja"` の本文も併記します。
 - 個人名で姓と名を判別できる場合は、`jpcoar:creatorName` に加えて `jpcoar:familyName` と `jpcoar:givenName` を記載します。
+- 旧姓や筆名は、`jpcoar:creatorAlternative` に記載します。
 - 所属機関識別子は ROR を第一候補とし、<https://ror.org> で機関名から検索します。
   見つからない場合は、所属機関名のみを記載します。
 - 団体作成者（`nameType="Organizational"`）には、原則としてその団体自身の所属を付けません。
-  これは公式規定ではなく、運用上の目安です。
+  これは公式規定ではなく、本ガイドの運用上の判断です。
 - 所属の詳しい入力手順は、[所属サブフロー](#作成者所属-jpcoaraffiliation-サブフロー)を参照してください。
 
 ---
