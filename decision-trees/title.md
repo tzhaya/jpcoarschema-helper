@@ -103,8 +103,8 @@ flowchart TD
     A3a --> D3
     A3b --> D3d{その他のタイトルに<br/>ヨミを付与するか?}
     D3d -- いいえ --> D3
-    D3d -- "はい（カナ）" --> A3h["dcterms:alternative xml:lang=ja-Kana<br/>※xml:lang=ja も必ず併記"]
-    D3d -- "はい（ローマ字）" --> A3i["dcterms:alternative xml:lang=ja-Latn<br/>※xml:lang=ja も必ず併記"]
+    D3d -- "はい（カナ）" --> A3h["dcterms:alternative xml:lang=ja-Kana<br/>※dcterms:alternative xml:lang=ja も必ず併記"]
+    D3d -- "はい（ローマ字）" --> A3i["dcterms:alternative xml:lang=ja-Latn<br/>※dcterms:alternative xml:lang=ja も必ず併記"]
     A3h --> D3
     A3i --> D3
     A3c --> D3
@@ -141,7 +141,7 @@ flowchart TD
 | | | いいえ | #4 へ | ― | ― |
 | #4 | ほかのタイトルはあるか | 別言語の同一（代表）タイトル | 並列タイトルとして `dc:title` を言語別に繰り返し記載 | `dc:title xml:lang="fr"` | Etudes sur l'agrometeorologie |
 | | | 副題（標題紙で本タイトルと一体） | 本ガイドの運用上、本タイトルの一部として `dc:title` に続けて記載 | `dc:title xml:lang="ja"` | 農業気象の研究：第2版に向けて |
-| | | 独立した副題、目次タイトル、奥付タイトルなど | 「その他のタイトル」として記載する（該当する場合は必須、MA） | `dcterms:alternative xml:lang="ja"` | 第2版に向けて |
+| | | 独立した副題、目次タイトル、奥付タイトルなど | 「その他のタイトル」として記載し、#4a へ（該当する場合は必須、MA） | `dcterms:alternative xml:lang="ja"` | 第2版に向けて |
 | | | 章・論文を直接収録する図書名・雑誌名 | `dc:title` と `dcterms:alternative` には入れない。JPCOAR #1 に従い上位資料との関連として記録し、収録物情報を構造化する場合は収録物名を使用する | `jpcoar:relation` / `jpcoar:sourceTitle` | （タイトルには記入しない） |
 | | | 独立した資料が属するシリーズ名・叢書名 | タイトル要素や収録物名へ一律に割り当てず、シリーズ全体との関連として記録する | `jpcoar:relation relationType="isPartOf"` | （タイトルには記入しない） |
 | | | 部編名 | 資料上の表示と構成を確認し、登録対象のタイトルの一部、部編名、上位資料との関連のいずれかを判断する | `dc:title` / `dcndl:volumeTitle` / `jpcoar:relation` | 第1部　基礎編 |
