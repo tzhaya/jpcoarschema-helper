@@ -34,7 +34,7 @@
 |--------------|--------|------------|
 | 氏名・名称（まずこれを入れる） | `jpcoar:creatorName` | 姓名または団体名を1文字列で必ず記載する（作成者がある場合は条件付必須） |
 | 個人名を姓と名に分ける | `jpcoar:familyName` ＋ `jpcoar:givenName` | 判別できる場合は `creatorName` に加えて補足的に記載する |
-| カナ読み・ローマ字読み | `jpcoar:creatorName` ／ `jpcoar:creatorAlternative` | あれば `ja-Kana` / `ja-Latn` で記載する。本ガイドでは `ja` の本文も併記する |
+| カナ読み・ローマ字読み | `jpcoar:creatorName` ／ `jpcoar:creatorAlternative` | あれば `ja-Kana` / `ja-Latn` で記載する。本ガイドの運用上、`ja` の本文も併記する |
 | 作成者識別子（ORCID 等） | `jpcoar:nameIdentifier` | あれば記載し、`nameIdentifierScheme` で種類を示す |
 | 所属機関 | `jpcoar:affiliationName` | できれば記載し、`jpcoar:affiliation` の下に入れる |
 
