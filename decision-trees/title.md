@@ -37,7 +37,7 @@ DOI登録の有無にかかわらず、資料を代表するタイトルを必�
 | 独立した副題、目次タイトル、奥付タイトル | `dcterms:alternative` | 本タイトル以外のタイトルとして記載する。標題紙で本タイトルと一体の副題は、本ガイドの運用上 `dc:title` に含める |
 | 章・論文を直接収録する図書名・雑誌名 | `jpcoar:relation` または `jpcoar:sourceTitle` | タイトル要素には入れない。JPCOAR #1 に従い上位資料との関連として記録し、収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用する |
 | 独立した資料が属するシリーズ名・叢書名 | `jpcoar:relation relationType="isPartOf"` | タイトル要素や収録物名へ一律に割り当てない |
-| カナ読み、ローマ字読み | `dc:title` | `ja-Kana` または `ja-Latn` を使い、`ja` の本文タイトルも併記する |
+| カナ読み、ローマ字読み | 読みの対象が本タイトルなら `dc:title`、その他のタイトルなら `dcterms:alternative` | `ja-Kana` または `ja-Latn` を使い、同じ要素の `ja` の情報も併記する |
 
 入力先を決めた後、タイトルの言語を `xml:lang` で示します。
 スキーマ層では **MA（該当する場合は必須）**、DOI登録層では **JaLC DOI は任意、Crossref DOI は必須**です。
@@ -101,7 +101,12 @@ flowchart TD
     D3c -- いいえ --> A3g["dcndl:volumeTitle または<br/>上位資料との関連として記録"]
 
     A3a --> D3
-    A3b --> D3
+    A3b --> D3d{その他のタイトルに<br/>ヨミを付与するか?}
+    D3d -- いいえ --> D3
+    D3d -- "はい（カナ）" --> A3h["dcterms:alternative xml:lang=ja-Kana<br/>※xml:lang=ja も必ず併記"]
+    D3d -- "はい（ローマ字）" --> A3i["dcterms:alternative xml:lang=ja-Latn<br/>※xml:lang=ja も必ず併記"]
+    A3h --> D3
+    A3i --> D3
     A3c --> D3
     A3d --> D3
     A3e --> D3
@@ -141,6 +146,9 @@ flowchart TD
 | | | 独立した資料が属するシリーズ名・叢書名 | タイトル要素や収録物名へ一律に割り当てず、シリーズ全体との関連として記録する | `jpcoar:relation relationType="isPartOf"` | （タイトルには記入しない） |
 | | | 部編名 | 資料上の表示と構成を確認し、登録対象のタイトルの一部、部編名、上位資料との関連のいずれかを判断する | `dc:title` / `dcndl:volumeTitle` / `jpcoar:relation` | 第1部　基礎編 |
 | | | いいえ | 完了 | ― | ― |
+| #4a | その他のタイトルにヨミを付与するか | カナ | `ja` のその他のタイトルと併記 | `dcterms:alternative xml:lang="ja-Kana"` | ダイ2ハン ニ ムケテ |
+| | | ローマ字 | `ja` のその他のタイトルと併記 | `dcterms:alternative xml:lang="ja-Latn"` | Dai 2-han ni mukete |
+| | | いいえ | #4 へ戻る | ― | ― |
 
 ---
 
@@ -159,7 +167,8 @@ flowchart TD
 | 章・論文を直接収録する図書名・雑誌名 | 登録対象に対する上位資料 | `dc:title` と `dcterms:alternative` には入れず、`jpcoar:relation` で関連を記録する。収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用する |
 | 独立した資料が属するシリーズ名・叢書名（例「◯◯叢書」） | シリーズ全体との関連 | 原則として `jpcoar:relation relationType="isPartOf"`。`jpcoar:sourceTitle` へ一律に割り当てない |
 | 部編名（例「第1部　基礎編」） | 登録対象のタイトル構成を確認 | タイトルの一部なら `dc:title`、独立した部編名なら `dcndl:volumeTitle`、上位資料を示す場合は `jpcoar:relation` を検討する |
-| 日本語タイトルの読みを検索用に入れたい | ヨミ | `dc:title xml:lang="ja-Kana"` または `ja-Latn` |
+| 日本語の本タイトルの読みを検索用に入れたい | 本タイトルのヨミ | `dc:title xml:lang="ja-Kana"` または `ja-Latn`。`dc:title xml:lang="ja"` も併記する |
+| 日本語のその他のタイトルの読みを検索用に入れたい | その他のタイトルのヨミ | `dcterms:alternative xml:lang="ja-Kana"` または `ja-Latn`。`dcterms:alternative xml:lang="ja"` も併記する |
 
 ---
 
@@ -192,6 +201,14 @@ flowchart TD
 <dcterms:alternative xml:lang="ja">第2版に向けて</dcterms:alternative>
 ```
 
+### その他のタイトルとカナヨミ
+
+```xml
+<dc:title xml:lang="ja">農業気象の研究</dc:title>
+<dcterms:alternative xml:lang="ja">第2版に向けて</dcterms:alternative>
+<dcterms:alternative xml:lang="ja-Kana">ダイ2ハン ニ ムケテ</dcterms:alternative>
+```
+
 ---
 
 ## 注記（入力ルール）
@@ -207,7 +224,8 @@ flowchart TD
 - `dc:title` は各言語コードにつき1回までです。
   `dcterms:alternative` は、同じ言語コードでも複数回記載できます。
 - `dc:title` は優先度の高い言語から記載します。
-- カナヨミ `ja-Kana` またはローマ字ヨミ `ja-Latn` を記載する場合は、`xml:lang="ja"` の本タイトルも併記します。
+- `dc:title` にカナヨミ `ja-Kana` またはローマ字ヨミ `ja-Latn` を記載する場合は、`dc:title xml:lang="ja"` も併記します。
+- `dcterms:alternative` にカナヨミ `ja-Kana` またはローマ字ヨミ `ja-Latn` を記載する場合は、`dcterms:alternative xml:lang="ja"` も併記します。
 - 掲載誌名や上位資料名は、`dc:title` と `dcterms:alternative` のどちらにも混入させません。
   章などを収録する図書全体は、JPCOAR #1 に従い `jpcoar:relation` に記録します。
   雑誌名・図書名などの収録物情報を構造化して記録する場合は `jpcoar:sourceTitle` を使用します。
