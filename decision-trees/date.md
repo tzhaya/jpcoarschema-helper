@@ -141,10 +141,10 @@ flowchart TD
 | 査読が完了した日 | 専用の `dateType` はない | 受理日が確認できる場合のみ `Accepted`（受理日）を記載。査読完了日そのものは記載しない |
 | 学位授与年月日 | `dateType` の値ではなく別要素 | `dcndl:dateGranted`（`datacite:date` ではない） |
 | 「寛政壬子」「崇禎17」など西暦でない日付 | リテラル | `dcterms:date xml:lang="..."`（西暦が分かれば `datacite:date` も併記） |
-| `19--` のように年の一部が不明な日付 | `datacite:date` には記載しない。リテラルの日付として記載する | `dcterms:date` |
+| `19--` のように年の一部が不明な日付 | 不明年 | `dcterms:date`（`datacite:date` には記載しない） |
 | コンテンツが扱う時代や期間 | 作成日、発行日などのライフサイクル上の日付ではなく、内容に関する時間的範囲 | `dcterms:temporal`（#21） |
 | 観測・収集が一定期間にわたる場合 | 範囲 | `datacite:date dateType="Collected">開始/終了` |
-| DOI登録するが登録に使う日付が不明 | 対照表 ver.1.5 のDOI登録要件 | `datacite:date dateType="Issued">9999-01-01` |
+| DOI登録するが登録に使う日付が不明 | 代表日付を選べない場合の既定値（対照表 ver.1.5 の要件） | `datacite:date dateType="Issued">9999-01-01` |
 
 ---
 
@@ -196,7 +196,8 @@ flowchart TD
   別要素の `dcndl:dateGranted`（#33、MA）に記載します。
 - `dcterms:date` は O、0-Nです。
   年号、干支、不確定年など、統制形式で記載できない日付に使用します。
-  西暦紀年は `datacite:date` に記載し、不明な日付を除いて併用が推奨されます。
+  西暦紀年は `datacite:date` に記載します。
+  不明な日付を除き、`datacite:date` の併用が推奨されます。
   `享和3 (1803)` のようにリテラルの日付へ西暦紀年を補記しません。
 - コンテンツの内容に関する時間的範囲は、`dcterms:temporal`（#21）に記載します。
 
