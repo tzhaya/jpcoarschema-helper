@@ -18,7 +18,7 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
 
 | 役割 | 場所 | 内容 |
 |------|------|------|
-| 公式定義のまとめ | [reference/](reference/)`<element>_rules.md` | 公式説明ページのみを典拠にした要素定義（記入レベル、繰返、属性、統制語彙、下位構造）。**DOI要件や運用方針を混ぜない** |
+| 公式定義のまとめ | [reference/](reference/)`<element>_rules.md` | 公式説明ページと、要素に付随する公式別表を典拠にした要素定義（記入レベル、繰返、属性、統制語彙、下位構造）。**DOI要件や運用方針を混ぜない** |
 | 入力フローチャート | [decision-trees/](decision-trees/)`<element>.md` | `*_rules.md` を典拠に、DOI要件の分岐を織り込んだ Mermaid フローチャート、対応表、注記 |
 
 共通の骨格、凡例、方針は [decision-trees/CONVENTIONS.md](decision-trees/CONVENTIONS.md) に集約されています。各ページに再掲せず、同ファイルを参照してください。
@@ -32,7 +32,7 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
 
 | 層 | 典拠 | 例 |
 |----|------|----|
-| **スキーマ層** | [公式説明ページ](https://schema.irdb.nii.ac.jp/ja/schema) / `reference/*_rules.md` | `dc:title` は M（必須）、`xml:lang` は MA |
+| **スキーマ層** | [公式資料](https://schema.irdb.nii.ac.jp/ja/schema) / `reference/*_rules.md` | `dc:title` は M（必須）、`xml:lang` は MA |
 | **DOI登録層** | [対照表](reference/JPCOAR_JaLC_Crossref_requirements.md) | タイトルの `xml:lang` は JaLC＝任意 / Crossref＝必須 |
 | **本ガイドの運用方針** | [decision-trees/CONVENTIONS.md](decision-trees/CONVENTIONS.md) | `xml:lang` は入力漏れ防止のため原則付与 |
 
@@ -61,7 +61,7 @@ JPCOARスキーマ 2.0 の各項目を、初心者が迷わず入力できるよ
 1. **公式定義をまとめる**
    - 作成先: `reference/<element>_rules.md`
    - [reference/JPCOARschema_guide.md](reference/JPCOARschema_guide.md) で項番を確認します。
-   - 公式説明ページ（`https://schema.irdb.nii.ac.jp/ja/schema/2.0/<番号>`）を取得します。下位項目は1つずつ確認してください。
+   - 公式説明ページ（`https://schema.irdb.nii.ac.jp/ja/schema/2.0/<番号>`）を取得します。下位項目は1つずつ確認してください。公式説明ページから参照される要素固有の別表がある場合は、その別表も取得します。
    - [reference/_TEMPLATE_element_rules.md](reference/_TEMPLATE_element_rules.md) を雛形として使用します。
    - **この段階では公式記述のみ**を記載し、DOI要件や本ガイドの運用方針を混ぜないでください。
 
