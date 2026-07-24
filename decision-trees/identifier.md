@@ -52,7 +52,7 @@ DOIの登録機関と `prefix/suffix` 形式の値は、別要素のID登録（#
 flowchart TD
     R([資源／登録する文献]) --> D0{ハンドル（HDL）は<br/>付与されているか?}
 
-    D0 -- はい --> A0[/リポジトリシステムでハンドルURLを確認<br/>※JAIRO Cloud等では新規登録時に<br/>自動付与されることが多い/]
+    D0 -- はい --> A0[/リポジトリシステムでハンドルURLを確認<br/>※JAIRO CloudでCNRIハンドルを使用する場合は<br/>Item Registration完了時に登録/]
     A0 --> P1["jpcoar:identifier に記載<br/>identifierType を HDL に設定<br/>（優先順位: HDLを優先）"]
 
     D0 -- いいえ --> A1[/本文またはランディングページのURIを確認/]
@@ -150,13 +150,13 @@ flowchart TD
 | JaLC DOI | 必須（1） | HDL > URI | ID登録（#19）のDOI値を `identifierType="DOI"` で識別子にも追加記載する |
 | Crossref DOI | 必須（1） | HDL > URI | 追加要件なし |
 
-JaLC DOI登録時の `identifierType="DOI"` は、HDLとURIの優先順位とは別の要件です。
+本ガイドでは、JaLC DOI登録時の `identifierType="DOI"` は、HDLとURIの優先順位とは別の要件と解釈します。
 
 ### 本ガイドの運用方針
 
 - ハンドルとURIの両方が利用できる場合は、対照表の優先順位に従ってハンドルを記載します。
 - 識別子（#18）とID登録（#19）を混同しないよう、JaLC DOIの値と形式を両方の要素で照合します。
-- JAIRO Cloud（WEKO3）の通常モードでは、新規アイテム登録時にCNRI Handleがシステムから自動付与されることが多いため、登録後の画面で値を確認します。
+- JAIRO Cloud（WEKO3）でCNRIハンドルを使用する場合は、Item Registrationアクションの完了時点で登録されるため、登録後の画面で値を確認します。
   JaLC DOIを登録する場合は、「識別子付与」アクション実行後にDOIのURI形式が識別子（#18）へ反映されていることも確認します。
   詳細は [ID登録フローチャート](identifier-registration.md) を参照してください。
 
@@ -167,5 +167,6 @@ JaLC DOI登録時の `identifierType="DOI"` は、HDLとURIの優先順位とは
 - JPCOARスキーマ 2.0 #18 識別子: https://schema.irdb.nii.ac.jp/ja/schema/2.0/18
 - 要素・属性の記述ルール（公式準拠）: [identifier_rules.md](../reference/identifier_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
+- JAIRO Cloud（WEKO3）のCNRIハンドル登録: [JPCOAR JAIRO Cloud基本マニュアル「3.2 メタデータ入力」](https://jpcoar.org/support/jairo-cloud/manual/item-registration/)
 - ID登録（#19）フローチャート: [identifier-registration.md](identifier-registration.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en

@@ -64,8 +64,8 @@
 
 | 要素 | junii2 |
 |------|--------|
-| `jpcoar:identifier`（`identifierType="URI"`） | URI（資源識別子URI） |
-| `jpcoar:identifier`（`identifierType="DOI"`） | selfDOI（JaLC DOI） |
+| `jpcoar:identifier` | URI（資源識別子URI）、selfDOI（JaLC DOI） |
 
 > 出典：上記のJPCOARスキーマ 2.0 公式説明ページ（#18）
+> 公式説明ページはjunii2の2項目を列挙しており、`identifierType` との対応は記載していません。
 > DC-NDL、DataCite等へのマッピングは、公式説明ページに記載されていません。
