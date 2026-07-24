@@ -38,6 +38,7 @@ DOI登録では **必須（1）** となり、登録に使う日付を1つ記載
 | 発行日、公開日 | `datacite:date dateType="Issued"` | DOI登録の代表日付として最優先で記載する |
 | 作成日、更新日、受理日など | `datacite:date` と該当する `dateType` | あれば記載し、種類を `dateType` で指定する |
 | 西暦で書けない日付（年号、干支、不確定） | `dcterms:date`（リテラル） | 自由記述で記載し、`xml:lang` を付与する。西暦が分かる場合は `datacite:date` も併記する |
+| コンテンツの内容に関する時間的範囲 | `dcterms:temporal`（時間的範囲） | コンテンツの作成日や発行日とは分けて記載する |
 | 日付の範囲 | `datacite:date` | `開始/終了`（例 `2004-03-02/2005-06-02`）で記載する |
 
 `datacite:date` の値は W3C DTF 形式（`YYYY` / `YYYY-MM` / `YYYY-MM-DD` 等）で入力します。
@@ -65,7 +66,7 @@ flowchart TD
     CTX2 --> D1
 
     D1{登録に使う日付は<br/>判明しているか?}
-    D1 -- "いいえ（DOI登録は日付必須）" --> AF["datacite:date dateType=Issued に<br/>9999-01-01 を記載<br/>※運用上のフォールバック（対照表）"]
+    D1 -- "いいえ（DOI登録は日付必須）" --> AF["datacite:date dateType=Issued に<br/>9999-01-01 を記載<br/>※対照表 ver.1.5 のDOI登録要件"]
     D1 -- はい --> D2{西暦の統制形式で<br/>書けるか?}
 
     D2 -- "いいえ（年号・干支・不確定）" --> A2["dcterms:date にリテラルで記載<br/>該当する場合は xml:lang を付与<br/>※西暦が分かる分は datacite:date も併記"]
@@ -110,7 +111,7 @@ flowchart TD
 |------|------|------|-----------|-----------|--------|
 | #1 | DOI登録先は | 登録しない | 日付は条件に当てはまれば記載（スキーマ MA・0-N）。記載する場合は `dateType` 必須 | `datacite:date` | |
 | | | JaLC / Crossref | 日付は必須（1）。代表日付の優先順位を適用 | `datacite:date` | |
-| #2 | 登録に使う日付は判明しているか | いいえ | `Issued` に `9999-01-01`（運用上のフォールバック） | `datacite:date dateType="Issued"` | 9999-01-01 |
+| #2 | 登録に使う日付は判明しているか | いいえ | 対照表 ver.1.5 のDOI登録要件に従い、`Issued` に `9999-01-01` を記載 | `datacite:date dateType="Issued"` | 9999-01-01 |
 | | | はい | #3 へ | ― | ― |
 | #3 | 西暦の統制形式で書けるか | いいえ | リテラルで記載し、該当する場合は `xml:lang` 付与。DOI登録時は代表用の `datacite:date` も必要 | `dcterms:date xml:lang="ja"` | 寛政壬子 |
 | | | はい | #4 へ | ― | ― |
@@ -140,8 +141,10 @@ flowchart TD
 | 査読が完了した日 | 専用の `dateType` はない | 受理日が確認できる場合のみ `Accepted`（受理日）を記載。査読完了日そのものは記載しない |
 | 学位授与年月日 | `dateType` の値ではなく別要素 | `dcndl:dateGranted`（`datacite:date` ではない） |
 | 「寛政壬子」「崇禎17」など西暦でない日付 | リテラル | `dcterms:date xml:lang="..."`（西暦が分かれば `datacite:date` も併記） |
+| `19--` のように年の一部が不明な日付 | 不明年 | `dcterms:date`（`datacite:date` には記載しない） |
+| コンテンツが扱う時代や期間 | 作成日、発行日などのライフサイクル上の日付ではなく、内容に関する時間的範囲 | `dcterms:temporal`（#21） |
 | 観測・収集が一定期間にわたる場合 | 範囲 | `datacite:date dateType="Collected">開始/終了` |
-| DOI登録するが日付が不明 | フォールバック | `datacite:date dateType="Issued">9999-01-01`（運用） |
+| DOI登録するが登録に使う日付が不明 | 代表日付を選べない場合の既定値（対照表 ver.1.5 の要件） | `datacite:date dateType="Issued">9999-01-01` |
 
 ---
 
@@ -167,7 +170,7 @@ flowchart TD
 <dcterms:date xml:lang="ja">寛政壬子</dcterms:date>
 ```
 
-### 日付が不明（DOI登録のフォールバック）
+### 登録に使う日付が不明（対照表 ver.1.5のDOI登録要件）
 
 ```xml
 <datacite:date dateType="Issued">9999-01-01</datacite:date>
@@ -180,17 +183,23 @@ flowchart TD
 ### スキーマ層
 
 - `datacite:date` は MA、0-Nです。
-  発行日などの関連する日付情報がある場合に記載し、複数の日付は要素を繰り返します。
+  `Issued`（発行日）がある場合は記入必須です。
+  その他の日付も、関連する情報がある場合は必ず記入し、複数の日付は要素を繰り返します。
 - `dateType` は M、1です。
   `datacite:date` ごとに、`Issued`、`Created`、`Updated`、`Accepted`、`Available` などから1つを選びます。
+  `dateType` を省略してはなりません。
 - 値は W3C Date and Time Formats（`YYYY` / `YYYY-MM` / `YYYY-MM-DD` / `YYYY-MM-DDThh:mmTZD`）で記載します。
   範囲は RKMS-ISO8601 に従い、`開始/終了` 形式で記載します。
+  `19--` のような不明な年は、`datacite:date` に記載してはなりません。
 - `dcterms:accessRights` が `embargoed access` の場合は、`dateType="Available"` で利用開始日を記載します。
 - 学位授与年月日は `dateType` の値ではありません。
   別要素の `dcndl:dateGranted`（#33、MA）に記載します。
 - `dcterms:date` は O、0-Nです。
   年号、干支、不確定年など、統制形式で記載できない日付に使用します。
-  西暦紀年が分かる場合は、対応する `datacite:date` の併用が推奨されます。
+  西暦紀年は `datacite:date` に記載します。
+  不明な日付を除き、`datacite:date` の併用が推奨されます。
+  `享和3 (1803)` のようにリテラルの日付へ西暦紀年を補記しません。
+- コンテンツの内容に関する時間的範囲は、`dcterms:temporal`（#21）に記載します。
 
 ### DOI登録層
 
@@ -199,7 +208,8 @@ flowchart TD
 複数の日付がある場合は、**`Issued > dateGranted > Created > Updated`** の順で登録に使う代表日付を選びます。
 `dateGranted` は別要素の学位授与年月日に由来する候補です。
 
-日付が判明しない場合は、`datacite:date dateType="Issued"` に `9999-01-01` を記載します。
+登録に使う日付が判明しない場合は、`datacite:date dateType="Issued"` に `9999-01-01` を記載します。
+これは対照表 ver.1.5 のDOI登録要件であり、`dcterms:date` に記載できる不明年 `19--` の代替表現ではありません。
 
 ### 本ガイドの運用方針
 
