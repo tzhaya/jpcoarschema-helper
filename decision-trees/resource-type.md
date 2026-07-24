@@ -49,7 +49,7 @@
 
 > Article、Book、Thesis、Dataset、Report は公式語彙別表のカテゴリ名です。
 > Conference Output は、公式別表のカテゴリ見出し `Conference object` の配下にある現行語彙名 `conference output` に合わせた表示です。
-> 残るカテゴリを「その他」にまとめるのは、図を読みやすくするための**運用上の整理**です。
+> 残るカテゴリを「その他」にまとめるのは、図を読みやすくするための**本ガイドの運用上の区分**です。
 
 ```mermaid
 flowchart TD
@@ -123,18 +123,19 @@ flowchart TD
 | 候補 | 判断の目安 |
 |------|------------|
 | `departmental bulletin paper`、`journal article`、`article` | 大学や研究所などの紀要類に掲載された論文は `departmental bulletin paper`、学術雑誌掲載の研究論文は `journal article`、それ以外の学術論文ではない記事は `article`。3語とも URI は `c_6501` で、DOI対象様式はジャーナル系のため、迷っても対象様式は変わらない |
+| 紀要類の表紙・目次 | 公式の資源タイプ語彙別表では、紀要類の表紙や目次は `departmental bulletin paper` ではなく `other` とする |
 | `book`、`book part` | 1巻またはセットで完結し、原則として ISBN で識別される資料全体は `book`。図書の章や節は `book part` |
 | `thesis`と学位別3種 | 学位段階が判明していれば `bachelor thesis`、`master thesis`、`doctoral thesis` を優先し、段階を特定できない場合は `thesis` |
 | `conference paper`、`conference poster`、`conference proceedings`、`conference presentation`、`conference output` | 会議録掲載論文、ポスター、会議録全体、スライド資料をそれぞれ専用語彙にする。これらに当てはまらない会議の電子資料全般は `conference output` |
-| `journal`、`other periodical` | 学術研究や最新動向を広める逐次刊行物そのものは `journal`。既存語彙に該当しないテキストの逐次刊行物は `other periodical` |
+| `journal`、`other periodical` | 学術研究や最新動向を広める逐次刊行物そのものは `journal`。既存の語彙に該当しない「テキスト」資料は `other periodical` |
 
-### 現行2.0語彙にない、または廃止された概念
+### 現行2.0語彙にない概念
 
-| 旧概念等 | JPCOAR 2.0での扱い |
-|----------|--------------------|
+| 概念 | JPCOAR 2.0での扱い |
+|------|--------------------|
 | `preprint` | 資源タイプ語彙には存在しない。論文のバージョン情報は出版タイプ `oaire:version`（#17）で表現し、DOI登録時の `dc:type` は `other` とする |
-| `periodical` | 2.0では廃止され、`journal` と `other periodical` に分かれた。対照表 ver.1.5 のジャーナル系一覧には旧語彙 `periodical` が残るため、スキーマ層では2.0語彙を優先する |
-| `internal report`、`report part` | 2.0では廃止。資料の性質に応じて `report`、`research report`、`technical report` などを選ぶ |
+| `periodical` | [JPCOAR 1.0.2の公式別表](https://schema.irdb.nii.ac.jp/ja/resource_type_vocabulary)には掲載されていますが、2.0の公式別表にはありません。対照表 ver.1.5 のジャーナル系一覧にも残っています。本ガイドでは、スキーマ層では資料の定義に応じて2.0語彙の `journal`、`other periodical` などから選ぶと解釈します |
+| `internal report`、`report part` | [JPCOAR 1.0.2の公式別表](https://schema.irdb.nii.ac.jp/ja/resource_type_vocabulary)には掲載されていますが、2.0の公式別表にはありません。本ガイドでは、資料の定義に応じて `report`、`research report`、`technical report` などから選ぶと解釈します |
 | `conference object` | 旧称。2.0では語彙名 `conference output` を使用する（URI `c_c94f` は同一） |
 
 ---
