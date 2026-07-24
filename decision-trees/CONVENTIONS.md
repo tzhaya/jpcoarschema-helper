@@ -116,7 +116,7 @@
 
 | 層 | 典拠 | 例 |
 |----|------|----|
-| **スキーマ層** | [公式説明ページ](https://schema.irdb.nii.ac.jp/ja/schema) と [要素別ルール](../reference/) | `dc:title` は M、1-N。`xml:lang` は MA |
+| **スキーマ層** | [公式資料](https://schema.irdb.nii.ac.jp/ja/schema) と [要素別ルール](../reference/) | `dc:title` は M、1-N。`xml:lang` は MA |
 | **DOI登録層** | [対照表](../reference/JPCOAR_JaLC_Crossref_requirements.md) | タイトル `xml:lang` は JaLC＝任意 / Crossref＝必須 |
 | **本ガイドの運用方針** | 本ファイル | `xml:lang` は入力漏れ防止のため原則付与 |
 
