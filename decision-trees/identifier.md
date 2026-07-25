@@ -52,7 +52,7 @@ DOIの登録機関と `prefix/suffix` 形式の値は、別要素のID登録（#
 flowchart TD
     R([資源／登録する文献]) --> D0{ハンドル（HDL）は<br/>付与されているか?}
 
-    D0 -- はい --> A0[/リポジトリシステムでハンドルURLを確認<br/>※JAIRO CloudでCNRIハンドルを使用する場合は<br/>Item Registration完了時に登録/]
+    D0 -- はい --> A0[/リポジトリシステムでハンドルURLを確認<br/>※JAIRO CloudでCNRIハンドルを使用する場合は<br/>Item Registration完了時にCNRIハンドルが登録/]
     A0 --> P1["jpcoar:identifier に記載<br/>identifierType を HDL に設定<br/>（優先順位: HDLを優先）"]
 
     D0 -- いいえ --> A1[/本文またはランディングページのURIを確認/]
@@ -167,6 +167,6 @@ flowchart TD
 - JPCOARスキーマ 2.0 #18 識別子: https://schema.irdb.nii.ac.jp/ja/schema/2.0/18
 - 要素・属性の記述ルール（公式準拠）: [identifier_rules.md](../reference/identifier_rules.md)
 - 必須項目・DOI要件: [JPCOAR_JaLC_Crossref_requirements.md](../reference/JPCOAR_JaLC_Crossref_requirements.md)
-- JAIRO Cloud（WEKO3）のCNRIハンドル登録: [JPCOAR JAIRO Cloud基本マニュアル「3.2 メタデータ入力」](https://jpcoar.org/support/jairo-cloud/manual/item-registration/)
+- JAIRO Cloud（WEKO3）のCNRIハンドル登録: [JPCOAR JAIRO Cloudマニュアル 3.5 アイテム承認](https://jpcoar.org/support/jairo-cloud/manual/item-registration/)
 - ID登録（#19）フローチャート: [identifier-registration.md](identifier-registration.md)
 - 手法の出典: Subirats, I. and Zeng, M.L. 2020. *Linked Open Data Enabled Bibliographical Data (LODE-BD) 3.0*. Rome, FAO. https://doi.org/10.4060/cb2209en
